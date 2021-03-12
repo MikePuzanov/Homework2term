@@ -7,7 +7,7 @@ namespace hw2Calculator
     class StackArray : IStack
     {
         private double[] stackElements;
-        private int index;
+        private int countNumbersInStack;
 
         public StackArray()
         {
@@ -16,12 +16,12 @@ namespace hw2Calculator
 
         public void Push(double value)
         {
-            if (index == stackElements.Length)
+            if (countNumbersInStack == stackElements.Length)
             {
-
+                Array.Resize(ref stackElements, stackElements.Length * 2);
             }
-            stackElements[index] = value;
-            index++;
+            stackElements[countNumbersInStack] = value;
+            countNumbersInStack++;
         }
 
         public double Pop()
@@ -30,20 +30,20 @@ namespace hw2Calculator
             {
                 throw new InvalidOperationException();
             }
-            index--;
-            double delete = stackElements[index];
+            countNumbersInStack--;
+            double delete = stackElements[countNumbersInStack];
             return delete;
         }
 
         public bool IsEmpty()
         {
-            return index == 0;
+            return countNumbersInStack == 0;
         }
 
         public void DeleteStack()
         {
             stackElements = new double[5];
-            index = 0;
+            countNumbersInStack = 0;
         }
     }
 }

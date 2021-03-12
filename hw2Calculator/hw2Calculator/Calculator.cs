@@ -30,13 +30,13 @@ namespace hw2Calculator
                 }
                 if (IsOperand(experssionArray[i]))
                 {
-                    if (stack.IsEmpty())
+                    /*if (stack.IsEmpty())
                     {
                         IsCorrect = false;
                         return 0;
-                    }
+                    }*/
                     double lastNumber = stack.Pop();
-                    if (stack.IsEmpty() || (experssionArray[i] == '/' && Math.Abs(lastNumber - 0) < 0.00001))
+                    if (/* stack.IsEmpty() || */ (experssionArray[i] == '/' && Math.Abs(lastNumber - 0) < 0.00001))
                     {
                         stack.DeleteStack();
                         IsCorrect = false;
@@ -88,7 +88,7 @@ namespace hw2Calculator
                 case '*':
                     stack.Push(number1 * number2);
                     break;
-                default:
+                case '/':
                     stack.Push(number1 / number2);
                     break;
             }
