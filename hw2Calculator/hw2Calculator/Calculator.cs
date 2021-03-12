@@ -43,7 +43,7 @@ namespace hw2Calculator
                         return 0;
                     }
                     stack.Push(lastNumber);
-                    AphyphyticAction(experssionArray[i], stack);
+                    ArithmeticOperation(experssionArray[i], stack);
                 }
                 else
                 {
@@ -73,7 +73,7 @@ namespace hw2Calculator
             return symbol == '+' || symbol == '-' || symbol == '*' || symbol == '/';
         }
 
-        private static void AphyphyticAction(char operation, IStack stack)
+        private static void ArithmeticOperation(char operation, IStack stack)
         {
             var number2 = stack.Pop();
             var number1 = stack.Pop();
