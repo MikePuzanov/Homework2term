@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace hw2LZW
 {
@@ -8,26 +7,29 @@ namespace hw2LZW
     {
         private class Node
         {
-            public byte IdSymbol { get; set; }
+            public byte Bytes { get; set; }
 
-            public int IndexSymbol { get; set; }
+            public bool IsUsed { get; set; }
+
+            public int IdByte { get; set; }
 
             public int CodeBytes { get; set; }
 
             public Dictionary<byte, Node> Sons { get; set; }
 
-            public Node(byte idSymbol, int indexSymbol)
+            public Node(byte bytes, int codeByte, bool isUsed)
             {
-                IdSymbol = idSymbol;
-                IndexSymbol = indexSymbol;
+                IsUsed = isUsed;
+                Bytes = bytes;
+                IdByte = codeByte;
                 Sons = new Dictionary<byte, Node>();
             }
 
             public Node IsFind(byte value)
-            => Sons.TryGetValue(value, out Node node) ? node : null;
+                => Sons.TryGetValue(value, out Node node) ? node : null;
         }
 
-        private Node root = new Node(0, 0);
+        private Node root = new Node(0, 0, false);
 
         private Node runner;
 
@@ -37,6 +39,7 @@ namespace hw2LZW
             {
                 InitRoot((byte)i, i);
             }
+            runner = root;
         }
 
         public int CountCodes { get; set; }
@@ -45,28 +48,33 @@ namespace hw2LZW
 
         private void InitRoot(byte idSymbol, int index)
         {
-            var son = new Node(idSymbol, index);
-            root.Sons.Add(idSymbol, son);
-            CountCodes++;
-        }
 
-        private void Init(byte value)
-        {
-            var son = new Node(value, CountCodes);
-            runner.Sons.Add(value, son);
+            var son = new Node(idSymbol, index, false);
+            root.Sons.Add(idSymbol, son);
             son.CodeBytes = CountCodes;
             CountCodes++;
         }
 
-        private bool CheckAdd(byte value, ref Node node)
+        private bool CheckAdd(byte value, Node node)
             => node.IsFind(value) == null ? true : false;
 
         public int IsAdd(byte value)
         {
-            var isCheck = CheckAdd(value, ref runner);
+            if (runner == root)
+            {
+                var check = runner.Sons[value];
+                if (check.IsUsed == false)
+                {
+                    check.IsUsed = true;
+                    runner = runner.Sons[value];
+                    LastCode = runner.Bytes;
+                    return -1;
+                }
+            }
+            var isCheck = CheckAdd(value, runner);
             if (isCheck)
             {
-                var son = new Node(value, CountCodes);
+                var son = new Node(value, CountCodes, true);
                 son.CodeBytes = CountCodes;
                 CountCodes++;
                 runner.Sons.Add(value, son);
@@ -80,5 +88,11 @@ namespace hw2LZW
                 return -1;
             }    
         }
+
+        public int GetCode()
+            => runner.Bytes;
+
+        public int GetLastCode()
+            => LastCode;
     }
 }
