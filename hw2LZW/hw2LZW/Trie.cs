@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace hw2LZW
 {
+    /// <summary>
+    /// вспомогательный класс для реализация Lzw
+    /// </summary>
     public class Trie
     {
         private class Node
@@ -44,8 +47,6 @@ namespace hw2LZW
 
         public int CountCodes { get; set; }
 
-        public int LastCode { get; set; }
-
         private void InitRoot(byte idSymbol, int index)
         {
 
@@ -58,6 +59,13 @@ namespace hw2LZW
         private bool CheckAdd(byte value, Node node)
             => node.IsFind(value) == null ? true : false;
 
+        public int LastCode { get; set; }
+
+        /// <summary>
+        /// функция добавления
+        /// </summary>
+        /// <param name="value">байт, который хотим добавить</param>
+        /// <returns>если такой байт уже есть, то вернем "-1"</returns>
         public int IsAdd(byte value)
         {
             if (runner == root)
@@ -89,9 +97,17 @@ namespace hw2LZW
             }    
         }
 
+        /// <summary>
+        /// функция для возврата кода у узла
+        /// </summary>
+        /// <returns>возвращается код узла</returns>
         public int GetCode()
             => runner.Bytes;
 
+        /// <summary>
+        /// вернем последний код
+        /// </summary>
+        /// <returns>возвращается последний код</returns>
         public int GetLastCode()
             => LastCode;
     }
