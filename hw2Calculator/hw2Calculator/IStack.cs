@@ -4,7 +4,7 @@ using System.Text;
 
 namespace hw2Calculator
 {
-    interface IStack
+    public interface IStack
     {
         void Push(double value);
 

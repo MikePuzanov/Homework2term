@@ -4,7 +4,7 @@ using System.Text;
 
 namespace hw2Calculator
 {
-    class StackList : IStack
+    public class StackList : IStack
     {
         private class StackElement
         {

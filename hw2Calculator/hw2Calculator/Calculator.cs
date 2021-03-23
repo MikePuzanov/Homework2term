@@ -4,7 +4,7 @@ using System.Text;
 
 namespace hw2Calculator
 {
-    class Calculator
+    public static class Calculator
     {
         public static double CalculatorExpression(string expression, ref bool IsCorrect, IStack stack)
         {
@@ -30,13 +30,13 @@ namespace hw2Calculator
                 }
                 if (IsOperand(experssionArray[i]))
                 {
-                    /*if (stack.IsEmpty())
+                    if (stack.IsEmpty())
                     {
                         IsCorrect = false;
                         return 0;
-                    }*/
+                    }
                     double lastNumber = stack.Pop();
-                    if (/* stack.IsEmpty() || */ (experssionArray[i] == '/' && Math.Abs(lastNumber - 0) < 0.00001))
+                    if ( stack.IsEmpty() ||  (experssionArray[i] == '/' && Math.Abs(lastNumber - 0) < 0.00001))
                     {
                         stack.DeleteStack();
                         IsCorrect = false;

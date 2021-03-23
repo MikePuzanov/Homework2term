@@ -6,12 +6,6 @@ namespace hw2Calculator
     {
         static void Main()
         {
-            if (!Test.TestCalculator())
-            {
-                Console.WriteLine("Тест не пройден!");
-                return;
-            }
-            Console.WriteLine("Тест пройден!");
             Console.WriteLine("Меню:");
             Console.WriteLine("1 - стэк на списках.");
             Console.WriteLine("2 - стэк на массиве.");

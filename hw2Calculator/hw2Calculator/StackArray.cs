@@ -4,7 +4,7 @@ using System.Text;
 
 namespace hw2Calculator
 {
-    class StackArray : IStack
+    public class StackArray : IStack
     {
         private double[] stackElements;
         private int countNumbersInStack;
