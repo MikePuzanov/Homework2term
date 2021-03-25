@@ -4,11 +4,11 @@ using System.Text;
 
 namespace hw3B_tree
 {
-    class BTree
+    public class BTree
     {
         public int MinimumDegreeOfTree { get; set; }
 
-        class Node
+        private class Node
         {
 
             public int CountKeys { get; set; }
@@ -22,7 +22,7 @@ namespace hw3B_tree
             {
                 CountKeys = 0;
                 Leaf = leaf;
-                var Keys = new (string key, string value)[2 * minimumDegreeOfTree - 1];
+                Keys = new (string key, string value)[2 * minimumDegreeOfTree - 1];
                 Sons = new Node[2 * minimumDegreeOfTree];
             }
         }
@@ -33,78 +33,175 @@ namespace hw3B_tree
 
         public BTree(int minimumDegreeOfTree)
         {
+            if (minimumDegreeOfTree < 2)
+            {
+                throw new ArgumentException("Минимальная степень дерева выбрана неправильна!");
+            }
             MinimumDegreeOfTree = minimumDegreeOfTree;
-            root = null;
+        }
+
+        public bool IsConsist(string key)
+        {
+            var node = root;
+            while (!node.Leaf)
+            {
+                for (int i = 0; i < node.CountKeys; ++i)
+                {
+                    if (key == node.Keys[i].key)
+                    {
+                        return true;
+                    }
+                    if (CompareKey(key, node.Keys[i].key))
+                    {
+                        node = node.Sons[i];
+                        break;
+                    }
+                    if (i == node.CountKeys - 1)
+                    {
+                        node = node.Sons[i + 1];
+                    }
+                }
+            }
+            for (int i = 0; i < node.CountKeys; ++i)
+            {
+                if (key == node.Keys[i].key)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+
+        public string GetValue(string key)
+        {
+            var node = root;
+            while (!node.Leaf)
+            {
+                for (int i = 0; i < node.CountKeys; ++i)
+                {
+                    if (key == node.Keys[i].key)
+                    {
+                        return node.Keys[i].value;
+                    }
+                    if (CompareKey(key, node.Keys[i].key))
+                    {
+                        node = node.Sons[i];
+                        break;
+                    }
+                    if (i == node.CountKeys - 1)
+                    {
+                        node = node.Sons[i + 1];
+                    }
+                }
+            }
+            for (int i = 0; i < node.CountKeys; ++i)
+            {
+                if (key == node.Keys[i].key)
+                {
+                    return node.Keys[i].value;
+                }
+            }
+            return null;
+        }
+
+        public bool CompareKey(string key, string keyInNode)
+        {
+            if (key.Length < keyInNode.Length)
+            {
+                return true;
+            }
+            else if (key.Length > keyInNode.Length)
+            {
+                return false;
+            }
+            return String.Compare(key, keyInNode) < 0 ? true : false;
         }
 
         public void Insert(string key, string value)
         {
             var runner = root;
-            if (runner == null)
+            if (root == null)
             {
                 root = new Node(MinimumDegreeOfTree, true);
+                root.Keys[0].key = key;
+                root.Keys[0].value = value;
+                root.CountKeys++;
             }
-            if (runner.CountKeys == (2 * MinimumDegreeOfTree) - 1)
+            else if (root.CountKeys == (2 * MinimumDegreeOfTree) - 1)
             {
                 var newRoot = new Node(MinimumDegreeOfTree, false);
-                root = newRoot;
                 newRoot.Sons[newRoot.CountKeys] = root;
-                // Split function
-                Split();
-                // function InsertInNode
-                InsertInNode(key, value);
+                root = newRoot;
+                Split(0, root);
+                InsertInNode(key, value, root);
             }
             else
             {
-                InsertInNode(key, value);
+                InsertInNode(key, value, runner);
             }
 
-             void Split(int index, Node node)// разобраться со split
+             void Split(int index, Node node)
             {
-                var newNode = new Node(MinimumDegreeOfTree, runner.Leaf);
+                var helpNode = node.Sons[index];
+                var newNode = new Node(MinimumDegreeOfTree, helpNode.Leaf);
                 newNode.CountKeys = MinimumDegreeOfTree - 1;
-                Array.Copy(runner.Keys, MinimumDegreeOfTree, newNode.Keys, 0, MinimumDegreeOfTree - 1);
-                if (!runner.Leaf)
+                Array.Copy(helpNode.Keys, MinimumDegreeOfTree, newNode.Keys, 0, MinimumDegreeOfTree - 1);
+                if (!node.Leaf)
                 {
-                    Array.Copy(runner.Sons, MinimumDegreeOfTree, newNode.Sons, 0, MinimumDegreeOfTree);
+                    Array.Copy(helpNode.Sons, MinimumDegreeOfTree, newNode.Sons, 0, MinimumDegreeOfTree);
                 }
-                runner.CountKeys = MinimumDegreeOfTree - 1;
+                helpNode.CountKeys = MinimumDegreeOfTree - 1;
+                for (int i = node.CountKeys; i >= index + 1; i--)
+                {
+                    node.Sons[i + 1] = node.Sons[i];
+                }
+                node.Sons[index + 1] = newNode;
+                for (int i = node.CountKeys - 1; i >= index; i--)
+                {
+                    node.Keys[i + 1].key = node.Keys[i].key;
+                    node.Keys[i + 1].value = node.Keys[i].value;
+                }
+                node.Keys[index].key = helpNode.Keys[MinimumDegreeOfTree - 1].key;
+                node.Keys[index].value = helpNode.Keys[MinimumDegreeOfTree - 1].value;
+                node.CountKeys++;
             }
 
-            void InsertInNode(string key, string value)
+            void InsertInNode(string key, string value, Node node)
             {
-                int size = runner.CountKeys; //
+                int size = node.CountKeys; //
                 int index = size - 1;
-                if (runner.Leaf == true)
+                if (node.Leaf)
                 {
-                    while (index >= 0 && String.Compare(runner.Keys[index].key, key) < 0) // проверитб сравнение
+                    while (index >= 0 && CompareKey(key, node.Keys[index].key)) // проверитб сравнение
                     {
-                        runner.Keys[index + 1].key = runner.Keys[index].key;
-                        runner.Keys[index + 1].value = runner.Keys[index].value;
+                        node.Keys[index + 1].key = node.Keys[index].key;
+                        node.Keys[index + 1].value = node.Keys[index].value;
                         index--;
                     }
-                    runner.Keys[index + 1].key = key;
-                    runner.Keys[index + 1].value = value;
-                    runner.CountKeys++;
+                    node.Keys[index + 1].key = key;
+                    node.Keys[index + 1].value = value;
+                    node.CountKeys++;
                 }
                 else
                 {
-                    while (index >= 0 && String.Compare(root.Keys[index].key, key) < 0) // проверитб сравнение
+                    while (index >= 0 && CompareKey(key, node.Keys[index].key)) // проверитб сравнение
                     {
                         index--;
                     }
-                    if (root.Sons[index].CountKeys == (2 * MinimumDegreeOfTree - 1))
+                    index++;
+                    if (node.Sons[index].CountKeys == (2 * MinimumDegreeOfTree - 1))
                     {
-                        Split();
-                        if (String.Compare(root.Keys[index].key, key) < 0) // проверитб сравнение
+                        Split(index, node);
+                        if (!CompareKey(key, node.Keys[index].key))
                         {
                             index++;
                         }
                     }
-                    runner = runner.Sons[index + 1];
-                    InsertInNode(key, value);
+                    InsertInNode(key, value, node.Sons[index]);
                 }   
             }
+
         }
 
     }
