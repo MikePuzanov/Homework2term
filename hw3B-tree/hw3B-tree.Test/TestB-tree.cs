@@ -42,5 +42,13 @@ namespace hw3B_tree.Test
         {
             Assert.IsTrue(tree.GetValue("8") == "h");
         }
+        
+        [TestCase]
+        public void CheckChangeValueByKey()
+        {
+            tree.ChangeValueByKey("5", "ololo");
+            Assert.IsTrue(tree.GetValue("5") == "ololo");
+        }
+
     }
 }
