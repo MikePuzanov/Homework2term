@@ -40,7 +40,7 @@ namespace hw3B_tree
             MinimumDegreeOfTree = minimumDegreeOfTree;
         }
 
-        public bool IsConsist(string key)
+        private Node FindNood(string key)
         {
             var node = root;
             while (!node.Leaf)
@@ -49,7 +49,7 @@ namespace hw3B_tree
                 {
                     if (key == node.Keys[i].key)
                     {
-                        return true;
+                        return node;
                     }
                     if (CompareKey(key, node.Keys[i].key))
                     {
@@ -61,6 +61,23 @@ namespace hw3B_tree
                         node = node.Sons[i + 1];
                     }
                 }
+            }
+            for (int i = 0; i < node.CountKeys; ++i)
+            {
+                if (key == node.Keys[i].key)
+                {
+                    return node;
+                }
+            }
+            return null;
+        }
+
+        public bool IsConsist(string key)
+        {
+            var node = FindNood(key);
+            if (node == null)
+            {
+                return false;
             }
             for (int i = 0; i < node.CountKeys; ++i)
             {
@@ -71,29 +88,13 @@ namespace hw3B_tree
             }
             return false;
         }
-        
 
         public string GetValue(string key)
         {
-            var node = root;
-            while (!node.Leaf)
+            var node = FindNood(key);
+            if (node == null)
             {
-                for (int i = 0; i < node.CountKeys; ++i)
-                {
-                    if (key == node.Keys[i].key)
-                    {
-                        return node.Keys[i].value;
-                    }
-                    if (CompareKey(key, node.Keys[i].key))
-                    {
-                        node = node.Sons[i];
-                        break;
-                    }
-                    if (i == node.CountKeys - 1)
-                    {
-                        node = node.Sons[i + 1];
-                    }
-                }
+                return null;
             }
             for (int i = 0; i < node.CountKeys; ++i)
             {
@@ -103,6 +104,24 @@ namespace hw3B_tree
                 }
             }
             return null;
+        }
+
+        public bool ChangeValueByKey(string key, string value)
+        {
+            var node = FindNood(key);
+            if (node == null)
+            {
+                return false;
+            }
+            for (int i = 0; i < node.CountKeys; ++i)
+            {
+                if (key == node.Keys[i].key)
+                {
+                    node.Keys[i].value = value;
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool CompareKey(string key, string keyInNode)
@@ -140,68 +159,133 @@ namespace hw3B_tree
             {
                 InsertInNode(key, value, runner);
             }
+        }
 
-             void Split(int index, Node node)
+        void Split(int index, Node node)
+        {
+            var helpNode = node.Sons[index];
+            var newNode = new Node(MinimumDegreeOfTree, helpNode.Leaf);
+            newNode.CountKeys = MinimumDegreeOfTree - 1;
+            Array.Copy(helpNode.Keys, MinimumDegreeOfTree, newNode.Keys, 0, MinimumDegreeOfTree - 1);
+            if (!node.Leaf)
             {
-                var helpNode = node.Sons[index];
-                var newNode = new Node(MinimumDegreeOfTree, helpNode.Leaf);
-                newNode.CountKeys = MinimumDegreeOfTree - 1;
-                Array.Copy(helpNode.Keys, MinimumDegreeOfTree, newNode.Keys, 0, MinimumDegreeOfTree - 1);
-                if (!node.Leaf)
+                Array.Copy(helpNode.Sons, MinimumDegreeOfTree, newNode.Sons, 0, MinimumDegreeOfTree);
+            }
+            helpNode.CountKeys = MinimumDegreeOfTree - 1;
+            for (int i = node.CountKeys; i >= index + 1; i--)
+            {
+                node.Sons[i + 1] = node.Sons[i];
+            }
+            node.Sons[index + 1] = newNode;
+            for (int i = node.CountKeys - 1; i >= index; i--)
+            {
+                node.Keys[i + 1].key = node.Keys[i].key;
+                node.Keys[i + 1].value = node.Keys[i].value;
+            }
+            node.Keys[index].key = helpNode.Keys[MinimumDegreeOfTree - 1].key;
+            node.Keys[index].value = helpNode.Keys[MinimumDegreeOfTree - 1].value;
+            node.CountKeys++;
+        }
+
+        void InsertInNode(string key, string value, Node node)
+        {
+            int size = node.CountKeys; //
+            int index = size - 1;
+            if (node.Leaf)
+            {
+                while (index >= 0 && CompareKey(key, node.Keys[index].key)) // проверитб сравнение
                 {
-                    Array.Copy(helpNode.Sons, MinimumDegreeOfTree, newNode.Sons, 0, MinimumDegreeOfTree);
+                    node.Keys[index + 1].key = node.Keys[index].key;
+                    node.Keys[index + 1].value = node.Keys[index].value;
+                    index--;
                 }
-                helpNode.CountKeys = MinimumDegreeOfTree - 1;
-                for (int i = node.CountKeys; i >= index + 1; i--)
-                {
-                    node.Sons[i + 1] = node.Sons[i];
-                }
-                node.Sons[index + 1] = newNode;
-                for (int i = node.CountKeys - 1; i >= index; i--)
-                {
-                    node.Keys[i + 1].key = node.Keys[i].key;
-                    node.Keys[i + 1].value = node.Keys[i].value;
-                }
-                node.Keys[index].key = helpNode.Keys[MinimumDegreeOfTree - 1].key;
-                node.Keys[index].value = helpNode.Keys[MinimumDegreeOfTree - 1].value;
+                node.Keys[index + 1].key = key;
+                node.Keys[index + 1].value = value;
                 node.CountKeys++;
             }
-
-            void InsertInNode(string key, string value, Node node)
+            else
             {
-                int size = node.CountKeys; //
-                int index = size - 1;
+                while (index >= 0 && CompareKey(key, node.Keys[index].key)) // проверитб сравнение
+                {
+                    index--;
+                }
+                index++;
+                if (node.Sons[index].CountKeys == (2 * MinimumDegreeOfTree - 1))
+                {
+                    Split(index, node);
+                    if (!CompareKey(key, node.Keys[index].key))
+                    {
+                        index++;
+                    }
+                }
+                InsertInNode(key, value, node.Sons[index]);
+            }
+        }
+
+        private int FindKeyIndex(string key)
+        {
+            var index = 0;
+            while (index < runner.CountKeys && CompareKey(key, runner.Keys[index].key)) /*runner.Keys[index].key < key */
+            {
+                index++;
+            }
+            return index;
+        }
+
+        private void Remove(string key, Node node)
+        {
+            runner = node;
+            var index = FindKeyIndex(key);
+            if (index < node.CountKeys && node.Keys[index].key == key)
+            {
                 if (node.Leaf)
                 {
-                    while (index >= 0 && CompareKey(key, node.Keys[index].key)) // проверитб сравнение
-                    {
-                        node.Keys[index + 1].key = node.Keys[index].key;
-                        node.Keys[index + 1].value = node.Keys[index].value;
-                        index--;
-                    }
-                    node.Keys[index + 1].key = key;
-                    node.Keys[index + 1].value = value;
-                    node.CountKeys++;
+                    DeleteFromLeaf();
                 }
                 else
                 {
-                    while (index >= 0 && CompareKey(key, node.Keys[index].key)) // проверитб сравнение
-                    {
-                        index--;
-                    }
-                    index++;
-                    if (node.Sons[index].CountKeys == (2 * MinimumDegreeOfTree - 1))
-                    {
-                        Split(index, node);
-                        if (!CompareKey(key, node.Keys[index].key))
-                        {
-                            index++;
-                        }
-                    }
-                    InsertInNode(key, value, node.Sons[index]);
-                }   
+                    DeleteFromNotLeaf();
+                }
             }
+            else
+            {
+                if (node.Leaf)
+                {
+                    //
+                    return;
+                }
+                if (index == node.CountKeys)
+                {
+                    var check = true;
+                }
+                else
+                {
+                    var check = false;
+                }
 
+
+            }
+        }
+
+        public void Delete(string key)
+        {
+            runner = root;
+            if (root == null)
+            {
+                return;
+            }
+            Remove(key, root);
+            if (root.CountKeys == 0)
+            {
+                if (root.Leaf)
+                {
+                    root = null;
+                }
+                else
+                {
+                    root = root.Sons[0];
+                }
+            }
         }
 
     }
