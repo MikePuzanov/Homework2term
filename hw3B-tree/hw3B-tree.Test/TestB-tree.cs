@@ -4,43 +4,48 @@ namespace hw3B_tree.Test
 {
     public class Tests
     {
-        private BTree tree = new BTree(2);
+        private BTree tree;
 
         [SetUp]
         public void Setup()
         {
-            tree.Insert("1", "a");
-            tree.Insert("2", "b");
-            tree.Insert("3", "c");
-            tree.Insert("4", "d");
-            tree.Insert("5", "e");
-            tree.Insert("6", "f");
-            tree.Insert("7", "g");
-            tree.Insert("8", "h");
+            tree = new BTree(2);
+            tree.Insert("1", "1");
+            tree.Insert("2", "2");
+            tree.Insert("3", "3");
+            tree.Insert("4", "4");
+            tree.Insert("5", "5");
+            tree.Insert("6", "6");
+            tree.Insert("7", "7");
+            tree.Insert("8", "8");
+            tree.Insert("9", "9");
+            tree.Insert("10", "10");
+            tree.Insert("11", "11");
+            tree.Insert("12", "12");
+            tree.Insert("13", "13");
+            tree.Insert("14", "14");
+            tree.Insert("15", "15");
+            tree.Insert("16", "16");
+            tree.Insert("17", "17");
+            tree.Insert("18", "18");
         }
 
         [TestCase]
-        public void CheckInsert1()
+        public void CheckInsert()
         {
-            Assert.IsTrue(tree.IsConsist("6"));
+            for (int i = 1; i <= 18; ++i)
+            {
+                Assert.IsTrue(tree.IsConsist(i.ToString()));
+            }
         }
 
         [TestCase]
-        public void CheckInsert2()
+        public void CheckGetValue()
         {
-            Assert.IsTrue(tree.IsConsist("8"));
-        }
-
-        [TestCase]
-        public void CheckGetValue1()
-        {
-            Assert.IsTrue(tree.GetValue("5") == "e");
-        }
-
-        [TestCase]
-        public void CheckGetValue2()
-        {
-            Assert.IsTrue(tree.GetValue("8") == "h");
+            for (int i = 1; i <= 18; ++i)
+            {
+                Assert.IsTrue(tree.GetValue(i.ToString()) == i.ToString());
+            }
         }
         
         [TestCase]
@@ -48,6 +53,21 @@ namespace hw3B_tree.Test
         {
             tree.ChangeValueByKey("5", "ololo");
             Assert.IsTrue(tree.GetValue("5") == "ololo");
+        }
+        
+        [TestCase]
+        public void CheckDelete()
+        {
+            tree.Delete("8");
+            for (int i = 1; i <= 18; ++i)
+            {
+                if (i == 8)
+                {
+                    Assert.IsFalse(tree.IsConsist(i.ToString()));
+                    continue;
+                }
+                Assert.IsTrue(tree.IsConsist(i.ToString()));
+            }
         }
 
     }

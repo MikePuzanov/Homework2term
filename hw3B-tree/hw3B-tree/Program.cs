@@ -7,61 +7,24 @@ namespace hw3B_tree
         static void Main(string[] args)
         {
             var tree = new BTree(2);
-            Console.WriteLine("Меню словаря");
-            Console.WriteLine("0 - добавить слово в словарь.");
-            Console.WriteLine("1 - вернуть слово по ключу.");
-            Console.WriteLine("2 - проверка на наличия ключа в словаре.");
-            Console.WriteLine("3 - изменение слова по ключу.");
-            Console.WriteLine("4 - удаление слова по ключу.");
-            while (true)
-            {
-                Console.WriteLine("Ваш выбор.");
-                var str = Console.ReadLine();
-                if (!int.TryParse(str, out int choice))
-                {
-                    Console.WriteLine("Ошибка ввода!");
-                    Console.WriteLine("Попробуйте еще раз!");
-                    continue;
-                }
-                var key = "";
-                var value = "";
-                switch (choice)
-                {
-                    case 0:
-                        Console.WriteLine("Введите ключ.");
-                        key = Console.ReadLine();
-                        Console.WriteLine("Введите слово.");
-                        value = Console.ReadLine();
-                        tree.Insert(key, value);
-                        break;
-                    case 1:
-                        Console.WriteLine("Введите ключ.");
-                        key = Console.ReadLine();
-                        str = tree.GetValue(key);
-                        if (str != null)
-                        {
-                            Console.WriteLine("Ваше слово -", str);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Слова с таким ключом нет.");
-                        }
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-
-                        break;
-                    case 4:
-
-                        break;
-                    default:
-                        Console.WriteLine("Ошибка ввода!");
-                        Console.WriteLine("Попробуйте еще раз!");
-                        break;
-                }
-            }
+            tree.Insert("1", "1");
+            tree.Insert("2", "2");
+            tree.Insert("3", "3");
+            tree.Insert("4", "4");
+            tree.Insert("5", "5");
+            tree.Insert("6", "6");
+            tree.Insert("7", "7");
+            tree.Insert("8", "8");
+            tree.Insert("9", "9");
+            tree.Insert("10", "10");
+            tree.Insert("11", "11");
+            tree.Insert("12", "12");
+            tree.Insert("13", "13");
+            tree.Insert("14", "14");
+            tree.Insert("15", "15");
+            tree.Insert("16", "16");
+            tree.Insert("17", "17");
+            tree.Insert("18", "18");
         }
     }
 }
