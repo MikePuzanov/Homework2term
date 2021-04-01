@@ -4,7 +4,7 @@ using System.Text;
 
 namespace hw4ParseTree
 {
-    class ParseTree
+    public class ParseTree
     {
         private INode root;
 
