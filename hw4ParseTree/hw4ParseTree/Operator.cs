@@ -10,7 +10,7 @@ namespace hw4ParseTree
 
         public INode RightChild { get; set; }
 
-        public virtual string Sign { get; }
+        public virtual char Sign { get; }
 
         public void Print()
         {

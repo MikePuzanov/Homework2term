@@ -6,9 +6,9 @@ namespace hw4ParseTree
 {
     public class Multiplication : Operator
     {
-        public override string Sign { get; }
+        public override char Sign { get; }
 
-        public Multiplication(string sign, INode leftChild, INode rightChild)
+        public Multiplication(char sign, INode leftChild, INode rightChild)
         {
             Sign = sign;
             LeftChild = leftChild;

@@ -6,9 +6,9 @@ namespace hw4ParseTree
 {
     public class Addition : Operator
     {
-        public override string Sign { get; }
+        public override char Sign { get; }
 
-        public Addition(string sign, INode leftChild, INode rightChild)
+        public Addition(char sign, INode leftChild, INode rightChild)
         {
             Sign = sign;
             LeftChild = leftChild;

@@ -10,11 +10,10 @@ namespace hw4ParseTree
 
         public void BuildTree(string expression)
         {
-            var line = expression.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             var index = 0;
-            if (IsCorrect(line[0]))
+            if (CheckExpression(expression))
             {
-                root = Build(line, ref index);
+                root = Build(expression, ref index);
             }
             else
             {
@@ -22,32 +21,99 @@ namespace hw4ParseTree
             }
         }
 
-        private bool IsCorrectSymbol(string symbol)
-            => symbol == "(" || symbol == ")";
+        private bool IsCorrectSymbol(char symbol)
+            => symbol == '(' || symbol == ')';
 
-        private bool IsCorrect(string symbol)
-            => symbol == "(" || IsOperator(symbol);
+        private bool IsCorrect(char symbol)
+            => symbol == '(' || IsOperator(symbol);
+        
+        private bool IsOperator(char symbol)
+            => symbol == '+' || symbol == '-' || symbol == '*' || symbol == '/';
 
-        private INode Build(string[] line, ref int index)
+        private double ReadNumber(string line, ref int index)
+        {
+            var number = "";
+            if (line[index] == '-')
+            {
+                number += line[index];
+                index++;
+            }
+            while (char.IsDigit(line[index]))
+            {
+                number += line[index];
+                index++;
+            }
+            if (!double.TryParse(number, out var value))
+            {
+                throw new InvalidExpressionException();
+            }
+            return value;
+        }
+
+        private bool CheckExpression(string line)
+        {
+            int index = 0;
+            int countNumber = 0;
+            int countBrackets = 0;
+            while (index != line.Length)
+            {
+                if (line[index] == '(')
+                {
+                    countBrackets++;
+                    index++;
+                }
+                else if (line[index] == ' ')
+                {
+                    index++;
+                }
+                else if (line[index] == ')')
+                {
+                    countBrackets--;
+                    index++;
+                }
+                else if (line[index] == '-' && char.IsDigit(line[index + 1]) || char.IsDigit(line[index]))
+                {
+                    var value = ReadNumber(line, ref index);
+                    index++;
+                    countNumber++;
+                }
+                else if (IsOperator(line[index]))
+                {
+                    countNumber--;
+                    index++;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return countBrackets == 0 && countNumber == 1;
+        }
+
+        private INode Build(string line, ref int index)
         {
             for (; index < line.Length; ++index)
             {
-                if (IsOperator(line[index]))
+                if (line[index] == ' ')
+                {
+                    continue;
+                }
+                if (line[index] == '-' && char.IsDigit(line[index + 1]) || char.IsDigit(line[index]))
+                {
+                    var value = ReadNumber(line, ref index);
+                    return new Operand(value);
+                }
+                else if (IsOperator(line[index]))
                 {
                     index++;
                     return line[index - 1] switch
                     {
-                        "+" => new Addition(line[index - 1], Build(line, ref index), Build(line, ref index)),
-                        "-" => new Subtraction(line[index - 1], Build(line, ref index), Build(line, ref index)),
-                        "/" => new Division(line[index - 1], Build(line, ref index), Build(line, ref index)),
-                        "*" => new Multiplication(line[index - 1], Build(line, ref index), Build(line, ref index)),
+                        '+' => new Addition(line[index - 1], Build(line, ref index), Build(line, ref index)),
+                        '-' => new Subtraction(line[index - 1], Build(line, ref index), Build(line, ref index)),
+                        '/' => new Division(line[index - 1], Build(line, ref index), Build(line, ref index)),
+                        '*' => new Multiplication(line[index - 1], Build(line, ref index), Build(line, ref index)),
                         _ => throw new Exception(),
                     };
-                }
-                else if (double.TryParse(line[index], out var value))
-                {
-                    index++;
-                    return new Operand(value);
                 }
                 else if (!IsCorrectSymbol(line[index]))
                 {
@@ -57,8 +123,6 @@ namespace hw4ParseTree
 			return root;
         }
 
-        private bool IsOperator(string symbol)
-            => symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/";
 
         public void PrintTree()
             => root.Print();

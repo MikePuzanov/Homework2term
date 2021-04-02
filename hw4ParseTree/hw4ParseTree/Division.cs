@@ -6,9 +6,9 @@ namespace hw4ParseTree
 {
     public class  Division : Operator
     {
-        public override string Sign { get; }
+        public override char Sign { get; }
 
-        public Division(string sign, INode leftChild, INode rightChild)
+        public Division(char sign, INode leftChild, INode rightChild)
         {
             Sign = sign;
             LeftChild = leftChild;

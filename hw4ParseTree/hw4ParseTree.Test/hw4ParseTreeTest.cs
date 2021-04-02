@@ -54,6 +54,14 @@ namespace hw4ParseTree.Test
         }
 
         [TestCase]
+        public void TestWithNegativeNumber()
+        {
+            var str = "( + 3 -2 )";
+            tree.BuildTree(str);
+            Assert.AreEqual(1, tree.Calculate());
+        }
+
+            [TestCase]
         public void TestDivisionByZero()
         {
             var str = "( / 8 0 )";
@@ -65,7 +73,6 @@ namespace hw4ParseTree.Test
         public void TestNotCorrectExpression()
         {
             var str = "( / 8 )";
-            tree.BuildTree(str);
             Assert.Throws<InvalidExpressionException>(() => tree.BuildTree(str));
         }
 

@@ -6,9 +6,9 @@ namespace hw4ParseTree
 {
     public class Subtraction : Operator
     {
-        public override string Sign { get;  }
+        public override char Sign { get;  }
 
-        public Subtraction(string sign, INode leftChild, INode rightChild)
+        public Subtraction(char sign, INode leftChild, INode rightChild)
         {
             Sign = sign;
             LeftChild = leftChild;
