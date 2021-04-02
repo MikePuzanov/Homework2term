@@ -7,10 +7,8 @@ namespace hw4ParseTree
         static void Main(string[] args)
         {
             var tree = new ParseTree();
-
             Console.WriteLine("Введите выражение -");
             var expression = Console.ReadLine();
-
             try
             {
                 tree.BuildTree(expression);

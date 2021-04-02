@@ -8,6 +8,9 @@ namespace hw4ParseTree
     {
         private INode root;
 
+        /// <summary>
+        /// Функция потсроения дерева разбора
+        /// </summary>
         public void BuildTree(string expression)
         {
             var index = 0;
@@ -124,9 +127,16 @@ namespace hw4ParseTree
         }
 
 
+        /// <summary>
+        /// функция печати дерева
+        /// </summary>
         public void PrintTree()
             => root.Print();
 
+        /// <summary>
+        /// Считает значение выражения
+        /// </summary>
+        /// <returns>возвращает ответ</returns>
         public double Calculate()
             => root.Calculate();
     }
