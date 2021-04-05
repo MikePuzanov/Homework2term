@@ -4,6 +4,9 @@ using System.Text;
 
 namespace hw4UniqueList
 {
+    /// <summary>
+    /// Список без повторяющихся значений
+    /// </summary>
     public class UniqueList : List
     {
         public override void Insert(int possition, int value)

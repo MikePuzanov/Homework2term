@@ -4,9 +4,13 @@ using System.Text;
 
 namespace hw4UniqueList
 {
+    /// <summary>
+    /// Список
+    /// </summary>
     public class List
     {
         private int Size { get; set; }
+
         private class Node
         {
             public int Value { get; set; }
@@ -20,17 +24,30 @@ namespace hw4UniqueList
             }
         }
 
+        public List()
+        {
+            Size = 0;
+            head = null;
+        }
+
         private Node head;
 
         private Node runner;
 
+        /// <summary>
+        /// Возвращает размер списка
+        /// </summary>
         public int GetSize()
             => Size;
 
         private Node GetNext(Node node)
             => node.Next;
 
-        private bool IsEmpty()
+        /// <summary>
+        /// Проверка на пустоту списка
+        /// </summary>
+        /// <returns>возвращает true, если список пуст</returns>
+        public bool IsEmpty()
             => head == null;
 
         private void CheckSize(int index)
@@ -41,17 +58,11 @@ namespace hw4UniqueList
             }
         }
 
-        public List()
-        {
-            Size = 0;
-            head = null;
-        }
-
         /// <summary>
-        /// 
+        /// Функция вставки
         /// </summary>
-        /// <param name="possition"></param>
-        /// <param name="value"></param>
+        /// <param name="possition">позиция узла</param>
+        /// <param name="value">значение в узле</param>
         public virtual void Insert(int possition, int value)
         {
             CheckSize(possition);
@@ -92,10 +103,10 @@ namespace hw4UniqueList
         }
 
         /// <summary>
-        /// 
+        /// Функция удаления по индексу
         /// </summary>
-        /// <param name="possition"></param>
-        /// <returns></returns>
+        /// <param name="possition">индекс узла</param>
+        /// <returns>возвращает значение в узле</returns>
         public virtual int DeleteByIndex(int possition)
         {
             CheckSize(possition);
@@ -132,9 +143,9 @@ namespace hw4UniqueList
         }
 
         /// <summary>
-        /// 
+        /// Функция удаление по значению
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">значение, которое надо удалить</param>
         public virtual void DeleteByValue(int value)
         {
             if (head.Value == value)
@@ -154,13 +165,14 @@ namespace hw4UniqueList
                 }
                 runner = GetNext(runner);
             }
+            throw new ValueDoesNotExistException();
         }
 
         /// <summary>
-        /// 
+        /// Смена значение в узле по индексу
         /// </summary>
-        /// <param name="possition"></param>
-        /// <param name="value"></param>
+        /// <param name="possition">индекс узла</param>
+        /// <param name="value">новое значение</param>
         public virtual void ChangeByIndex(int possition, int value)
         {
             CheckSize(possition);
@@ -175,10 +187,10 @@ namespace hw4UniqueList
         }
 
         /// <summary>
-        /// 
+        /// получить значение узла по его индексу
         /// </summary>
-        /// <param name="possition"></param>
-        /// <returns></returns>
+        /// <param name="possition">индекс узла</param>
+        /// <returns>возвращает значение в узле</returns>
         public int GetValueByIndex(int possition)
         {
             CheckSize(possition);
@@ -192,6 +204,11 @@ namespace hw4UniqueList
             return runner.Value;
         }
 
+        /// <summary>
+        /// проверка есть ли такое значение в списке
+        /// </summary>
+        /// <param name="value">значение, которое хотим проверить</param>
+        /// <returns>возвращает true, если нашелся узел с таким значением</returns>
         public bool IsConsist(int value)
         {
             runner = head;

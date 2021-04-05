@@ -18,30 +18,6 @@ namespace hw4UniqueList
             list.DeleteByValue(2);
             list.DeleteByValue(7);
             list.DeleteByValue(1);
-            if (list.IsConsist(1))
-            {
-                Console.WriteLine("TRUE");
-            }
-            else
-            {
-                Console.WriteLine("FALSE");
-            }
-            if (list.IsConsist(2))
-            {
-                Console.WriteLine("TRUE");
-            }
-            else
-            {
-                Console.WriteLine("FALSE");
-            }
-            if (list.IsConsist(7))
-            {
-                Console.WriteLine("TRUE");
-            }
-            else
-            {
-                Console.WriteLine("FALSE");
-            }
         }
     }
 }

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 
 namespace hw4UniqueList.Test
 {
@@ -39,6 +40,18 @@ namespace hw4UniqueList.Test
         }
 
         [TestCase]
+        public void TestDeleteByIndexException()
+        {
+            Assert.Throws<IndexOutOfRangeException>(() => list.DeleteByIndex(12));
+        }
+
+        [TestCase]
+        public void TestDeleteByValueException()
+        {
+            Assert.Throws<ValueDoesNotExistException>(() => list.DeleteByValue(12));
+        }
+
+        [TestCase]
         public void TestDeleteByValue()
         {
             list.DeleteByValue(2);
@@ -46,7 +59,14 @@ namespace hw4UniqueList.Test
             list.DeleteByValue(1);
             Assert.IsFalse(list.IsConsist(2) || list.IsConsist(8) || list.IsConsist(1));
         }
-            [TestCase]
+
+        [TestCase]
+        public void TestChangeByIndexIndexException()
+        {
+            Assert.Throws<IndexOutOfRangeException>(() => list.ChangeByIndex(12, 1));
+        }
+
+        [TestCase]
         public void TestChangeByIndex()
         {
             for (int i = 1; i < 9; ++i)
@@ -57,6 +77,22 @@ namespace hw4UniqueList.Test
             {
                 Assert.AreEqual(i + 10, list.GetValueByIndex(i));
             }
+        }
+
+        [TestCase]
+        public void TestGetSize()
+        {
+            Assert.IsTrue(list.GetSize() == 8);
+        }
+
+        [TestCase]
+        public void TestIsEmpty()
+        {
+            for (int i = 1; i < 9; ++i)
+            {
+                list.DeleteByValue(i);
+            }
+            Assert.IsTrue(list.IsEmpty());
         }
     }
 }
