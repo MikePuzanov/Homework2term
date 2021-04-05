@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace hw1BWT
 {
-    class BWT
+    static class BWT
     {
         public static bool Test()
         {
@@ -14,97 +14,50 @@ namespace hw1BWT
                 return false;
             }
             string oldString1 = ReverseBWT("cbaab", numberOfString);
-            return (oldString1 == string1);
-        }
-        private static void SwapStrings(char[,] transpositionTable, int i, int j)
-        {
-            int size = transpositionTable.GetLength(0);
-            for (int t = 0; t < size; ++t)
-            {
-                char swapHelper = transpositionTable[i, t];
-                transpositionTable[i, t] = transpositionTable[j, t];
-                transpositionTable[j, t] = swapHelper;
-            }
+            return oldString1 == string1;
         }
 
-        private static bool CompareStrs(char[,] table, int i, int j)
+        private static int[] WriteSuffixArray(string str)
         {
-            for (int l = 0; l < table.GetLength(0); ++l)
+            var suffixArray = new int[str.Length];
+            for (int i = 0; i < str.Length; i++)
             {
-                if (table[i, l] > (table[j, l]))
-                {
-                    return true;
-                }
-                else if (table[i, l] < (table[j, l]))
-                {
-                    return false;
-                }
+                suffixArray[i] = i;
             }
-            return false;
-        }
-
-        private static void SortTable(char[,] table)
-        {
-            int size = table.GetLength(0);
-            for (int i = 0; i < size; ++i)
-            {
-                for (int j = size - 1; j > i; --j)
-                {
-                    if (CompareStrs(table, i, j))
-                    {
-                        SwapStrings(table, i, j);
-                    }
-                }
-            }
+            return suffixArray;
         }
 
         public static Tuple<string, int> BWTtransform(string str)
         {
-            int size = str.Length;
-            char[,] table = new char[size, size];
-            for (int i = 0; i < size; ++i)
+            var suffixArray = WriteSuffixArray(str);
+            for (int i = 1; i < suffixArray.Length; i++)
             {
-                table[0, i] = str[i];
-            }
-            for (int i = 1; i < size; ++i)
-            {
-                table[i, 0] = table[i - 1, size - 1];
-                for (int j = 1; j < size; ++j)
+                for (int j = 0; j < suffixArray.Length - i; j++)
                 {
-                    table[i, j] = table[i - 1, j - 1];
-                }
-            }
-            SortTable(table);
-            int numberOfStr = 0;
-            for (int i = 0; i < size; ++i)
-            {
-                int count = 0;
-                if (table[i, 0] != str[0])
-                {
-                    continue;
-                }
-                for (int j = 0; j < size; ++j)
-                {
-                    if (table[i, j] != str[j])
+                    string str1 = str.Substring(suffixArray[j]) + str.Substring(0, suffixArray[j]);
+                    string str2 = str.Substring(suffixArray[j + 1]) + str.Substring(0, suffixArray[j + 1]);
+                    if (String.Compare(str1, str2) > 0)
                     {
-                        break;
+                        int swaper = suffixArray[j];
+                        suffixArray[j] = suffixArray[j + 1];
+                        suffixArray[j + 1] = swaper;
                     }
-                    count++;
-                }
-                if (count == size)
-                {
-                    numberOfStr = i;
-                    break;
                 }
             }
-
-            var resultString = new char[size];
-            for (int i = 0; i < size; i++)
+            string result = "";
+            var strSize = str.Length;
+            for (int i = 0; i < suffixArray.Length; i++)
             {
-                resultString[i] = table[i, size - 1];
+                if (suffixArray[i] == 0)
+                {
+                    result += str[strSize - 1];
+                }
+                else
+                {
+                    result += str[suffixArray[i] - 1];
+                }
             }
-            var result = new String(resultString);
-            return new Tuple<string, int>(result, numberOfStr);
+            return new Tuple<string, int>(result, Array.IndexOf(suffixArray, 0));
         }
 
         private static char[] GetAlphabet(char[] str)
@@ -117,9 +70,9 @@ namespace hw1BWT
                     alphabet += str[i];
                 }
             }
-            char[] alphaberArray = alphabet.ToCharArray(0, alphabet.Length);
-            Array.Sort(alphaberArray);
-            return alphaberArray;
+            char[] alphabetArray = alphabet.ToCharArray(0, alphabet.Length);
+            Array.Sort(alphabetArray);
+            return alphabetArray;
         }
 
         public static string ReverseBWT(string str, int numberOfStr)
