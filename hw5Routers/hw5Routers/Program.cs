@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace hw5Routers
 {
@@ -6,7 +7,15 @@ namespace hw5Routers
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            try
+            {
+                FileFunctions.WriteInFile(AlgorithmPrima.Algorithm(FileFunctions.CreateGraph("..\\..\\..\\Routers2.txt")), "RoutersTestResult.txt");
+            }
+            catch (GraphDisconnectedException)
+            {
+                Console.Error.WriteLine("Граф несвязный!");
+            }
+            //Routers.WriteInFile(AlgorithmPrima.Algorithm(Routers.CreateGraph(args[0])), args[1]);
         }
     }
 }

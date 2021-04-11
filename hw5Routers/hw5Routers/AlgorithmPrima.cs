@@ -4,14 +4,52 @@ using System.Text;
 
 namespace hw5Routers
 {
-    class AlgorithmPrima
+    public static class AlgorithmPrima
     {
-        static int maxKey(int[] key, bool[] mstSet)
+        private static bool CheckGraph(int[,] matrix)
+        {
+            var vertexStatus = new int[matrix.GetLength(0)];
+            int number = 1;
+            vertexStatus[0] = number;
+            int count = 0;
+            while (count < matrix.GetLength(0) && !Check(vertexStatus))
+            {
+                for (int i = 0; i < matrix.GetLength(0); i++)
+                {
+                    if (vertexStatus[i] == number)
+                    {
+                        for (int j = 0; j < matrix.GetLength(0); j++)
+                        {
+                            if (matrix[i, j] != 0 && vertexStatus[j] == 0)
+                            {
+                                vertexStatus[j] = number + 1;
+                            }
+                        }
+                    }
+                }
+                number++;
+                count++;
+            }
+            return Check(vertexStatus);
+        }
+
+        private static bool Check(int[] vetrexStatus)
+        {
+            for (int i = 0; i < vetrexStatus.Length; i++)
+            {
+                if (vetrexStatus[i] == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public static int MaxKey(int[] key, bool[] isConsist)
         {
             int max = int.MinValue;
             int indexMax = -1;
             for (int i = 0; i < key.Length; i++)
-                if (mstSet[i] == false && key[i] > max)
+                if (isConsist[i] == false && key[i] > max)
                 {
                     max = key[i];
                     indexMax = i;
@@ -19,35 +57,46 @@ namespace hw5Routers
             return indexMax;
         }
 
-        static void Algorithm(int[,] matrix)
+        public static int[,] Algorithm(int[,] matrix)
         {
-            int size = matrix.Length;
+            if (!CheckGraph(matrix))
+            {
+                throw new GraphDisconnectedException();
+            }
+            int size = matrix.GetLength(0);
             int[] parent = new int[size]; 
             int[] key = new int[size];
             bool[] isConsist = new bool[size];
             for (int i = 0; i < size; i++)
             {
-                key[i] = int.MaxValue;
-                isConsist[i] = false;
+                key[i] = int.MinValue;
             }
             key[0] = 0;
             parent[0] = -1;
             for (int count = 0; count < size - 1; count++)
             {
-                int u = maxKey(key, isConsist);
-                isConsist[u] = true;
-                for (int v = 0; v < size; v++)
+                int indexFirst = MaxKey(key, isConsist);
+                isConsist[indexFirst] = true;
+                for (int indexSecond = 0; indexSecond < size; indexSecond++)
                 {
-                    if (matrix[u, v] != 0 && isConsist[v] == false && matrix[u, v] < key[v])
+                    if (matrix[indexFirst, indexSecond] != 0 && isConsist[indexSecond] == false && matrix[indexFirst, indexSecond] > key[indexSecond])
                     {
-                        parent[v] = u;
-                        key[v] = matrix[u, v];
+                        parent[indexSecond] = indexFirst;
+                        key[indexSecond] = matrix[indexFirst, indexSecond];
                     }
                 }
             }
-            ///
-            ///
-            ///
+            return CreateMatrix(parent, matrix);
+        }
+
+        private static int[,] CreateMatrix(int[] parent, int[,] matrix)
+        {
+            var newMatrix = new int[matrix.GetLength(0), matrix.GetLength(0)];
+            for (int i = 1; i < matrix.GetLength(0); ++i)
+            {
+                newMatrix[parent[i], i] = newMatrix[i, parent[i]] = matrix[i, parent[i]];
+            }
+            return newMatrix;
         }
     }
 }
