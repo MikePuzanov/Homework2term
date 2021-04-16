@@ -57,6 +57,10 @@ namespace hw5Routers
             return indexMax;
         }
 
+        /// <summary>
+        /// алгоритм Прима
+        /// </summary>
+        /// <returns>новую матрицу</returns>
         public static int[,] Algorithm(int[,] matrix)
         {
             if (!CheckGraph(matrix))

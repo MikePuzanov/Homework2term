@@ -6,6 +6,10 @@ namespace hw5Routers
 {
     public static class FileFunctions
     {
+        /// <summary>
+        /// создает граф по файлу
+        /// </summary>
+        /// <returns>матрицу графа</returns>
         public static int[,] CreateGraph(string filePath)
         {
             int vertices = CountsVertexs(filePath);
@@ -60,6 +64,9 @@ namespace hw5Routers
             return vertice;
         }
 
+        /// <summary>
+        /// записывает итогую матрицу в файл
+        /// </summary>
         public static void WriteInFile(int[,] matrix, string filePath)
         {
             FileInfo fileOut = new FileInfo(filePath);
