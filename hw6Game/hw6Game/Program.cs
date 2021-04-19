@@ -5,7 +5,7 @@ namespace hw6Game
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var eventLoop = new EventLoop();
             var game = new Game("..//..//..//Map.txt");
@@ -15,6 +15,5 @@ namespace hw6Game
             eventLoop.DownHandler += game.OnDown;
             eventLoop.Run();
         }
-
     }
 }

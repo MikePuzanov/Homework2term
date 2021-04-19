@@ -15,6 +15,9 @@ namespace hw6Game
 
         static private PlayerCoordination player = new PlayerCoordination(); 
 
+        /// <summary>
+        /// create a map
+        /// </summary>
         public Map(string filePath)
         {
             var map = File.ReadAllLines(filePath);
@@ -32,6 +35,11 @@ namespace hw6Game
             mapPic = map;
         }
 
+        /// <summary>
+        /// Move player
+        /// </summary>
+        /// <param name="step">step direction</param>
+        /// <returns>true if step is complete</returns>
         public bool Move(string step)
         {
             switch (step)
@@ -69,7 +77,11 @@ namespace hw6Game
             }
         }
 
-        public (int, int) GetCoordinates()
+        /// <summary>
+        /// return player coordinates
+        /// </summary>
+        /// <returns>coordinates (x, y)</returns>
+        public (int, int) GetPlayerCoordinates()
             => (player.x, player.y);
     }
 }

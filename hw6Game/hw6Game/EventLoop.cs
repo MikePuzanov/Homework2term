@@ -31,5 +31,4 @@ namespace hw6Game
             }
         }
     }
-
 }

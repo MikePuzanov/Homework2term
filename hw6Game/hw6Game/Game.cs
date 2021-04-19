@@ -12,13 +12,10 @@ namespace hw6Game
 
         private (int, int) coordinates;
 
-        public (int, int) GetCoordinates()
-            => (coordinates.Item1, coordinates.Item2);
-
         public Game(string filePath)
         {
             map = new Map(filePath);
-            coordinates = map.GetCoordinates();
+            coordinates = map.GetPlayerCoordinates();
         }
 
         public void OnLeft(object sender, EventArgs args)
@@ -45,7 +42,7 @@ namespace hw6Game
         {
             if (map.Move(step))
             {
-                coordinates = map.GetCoordinates();
+                coordinates = map.GetPlayerCoordinates();
                 switch (step)
                 {
                     case "left":
