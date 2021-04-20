@@ -6,66 +6,60 @@ namespace hw2Calculator
 {
     public static class Calculator
     {
-        public static double CalculatorExpression(string expression, ref bool IsCorrect, IStack stack)
+        public static (double, bool) CalculatorExpression(string expression, IStack stack)
         {
             string number = "";
-            char[] experssionArray = expression.ToCharArray(0, expression.Length);
+            char[] expressionArray = expression.ToCharArray(0, expression.Length);
             for (int i = 0; i < expression.Length; ++i)
             {
-                if (experssionArray[i] == ' ')
+                if (expressionArray[i] == ' ')
                 {
                     number = "";
                     continue;
                 }
-                if (Char.IsDigit(experssionArray[i]))
+                if (Char.IsDigit(expressionArray[i]))
                 {
-                    while (i < expression.Length && experssionArray[i] != ' ')
+                    while (i < expression.Length && expressionArray[i] != ' ')
                     {
-                        number += experssionArray[i];
+                        number += expressionArray[i];
                         ++i;
                     }
                     stack.Push(double.Parse(number));
                     number = "";
                     continue;
                 }
-                if (IsOperand(experssionArray[i]))
+                if (IsOperand(expressionArray[i]))
                 {
                     if (stack.IsEmpty())
                     {
-                        IsCorrect = false;
-                        return 0;
+                        return (0, false);
                     }
                     double lastNumber = stack.Pop();
-                    if ( stack.IsEmpty() ||  (experssionArray[i] == '/' && Math.Abs(lastNumber - 0) < 0.00001))
+                    if (stack.IsEmpty() || (expressionArray[i] == '/' && Math.Abs(lastNumber - 0) < 0.00001))
                     {
                         stack.DeleteStack();
-                        IsCorrect = false;
-                        return 0;
+                        return (0, false);
                     }
                     stack.Push(lastNumber);
-                    ArithmeticOperation(experssionArray[i], stack);
+                    ArithmeticOperation(expressionArray[i], stack);
                 }
                 else
                 {
                     stack.DeleteStack();
-                    IsCorrect = false;
-                    return 0;
+                    return (0, false);
                 }
             }
             if (stack.IsEmpty())
             {
-                IsCorrect = false;
-                return 0;
+                return (0, false);
             }
             var result = stack.Pop();
             if (stack.IsEmpty())
             {
-                IsCorrect = true;
-                return result;
+                return (result, true);
             }
             stack.DeleteStack();
-            IsCorrect = false;
-            return 0;
+            return (0, false);
         }
 
         private static bool IsOperand(char symbol)
@@ -81,16 +75,16 @@ namespace hw2Calculator
             {
                 case '+':
                     stack.Push(number1 + number2);
-                    break;
+                break;
                 case '-':
                     stack.Push(number1 - number2);
-                    break;
+                break;
                 case '*':
                     stack.Push(number1 * number2);
-                    break;
+                break;
                 case '/':
                     stack.Push(number1 / number2);
-                    break;
+                break;
             }
         }
     }

@@ -5,7 +5,7 @@ namespace hw2Calculator.Test
     [TestFixture]
     class IStackTest
     {
-        [TestCase]
+        [Test]
         public void IsEmptyAfterPush()
         {
             IStack stack1 = new StackList();
@@ -15,17 +15,18 @@ namespace hw2Calculator.Test
             Assert.IsTrue(!(stack1.IsEmpty() && stack2.IsEmpty()));
         }
 
-        [TestCase]
+        [Test]
         public void PopAfterPush()
         {
             IStack stack1 = new StackList();
             IStack stack2 = new StackArray();
             stack1.Push(9);
             stack2.Push(8);
-            Assert.IsTrue((stack1.Pop() == 9 && stack2.Pop() == 8));
+            Assert.AreEqual(stack1.Pop(), 9);
+            Assert.AreEqual(stack2.Pop(), 8);
         }
 
-        [TestCase]
+        [Test]
         public void CheckDeleteStack()
         {
             IStack stack1 = new StackList();
@@ -39,7 +40,7 @@ namespace hw2Calculator.Test
             Assert.IsTrue((stack1.IsEmpty() && stack2.IsEmpty()));
         }
 
-        [TestCase]
+        [Test]
         public void CheckIsEmpty()
         {
             IStack stack1 = new StackList();

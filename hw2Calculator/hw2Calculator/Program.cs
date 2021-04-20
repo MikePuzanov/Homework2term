@@ -17,23 +17,21 @@ namespace hw2Calculator
                 return;
             }
             IStack stack;
-            if (choice == 1)
+            switch (choice)
             {
-                stack = new StackList();
-            }
-            else if (choice == 2)
-            {
-                stack = new StackArray();
-            }
-            else
-            {
-                Console.WriteLine("Ошибка ввода!");
+                case 1:
+                    stack = new StackList();
+                break;
+                case 2:
+                    stack = new StackArray();
+                break;
+                default:
+                    Console.WriteLine("Ошибка ввода!");
                 return;
             }
             Console.WriteLine("Введите выражение в постфиксной форме: ");
             string expression = Console.ReadLine();
-            bool isCorrect = false;
-            var result = Calculator.CalculatorExpression(expression, ref isCorrect, stack);
+            (var result, var isCorrect) = Calculator.CalculatorExpression(expression, stack);
             if (!isCorrect)
             {
                 Console.WriteLine("Ошибка ввода!");
