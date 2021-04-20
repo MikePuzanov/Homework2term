@@ -27,11 +27,7 @@ namespace hw2Calculator
             string expresion3 = "*";
             Calculator.CalculatorExpression(expresion3, ref isCorrect1, stack1);
             Calculator.CalculatorExpression(expresion3, ref isCorrect2, stack2);
-            if (isCorrect1 != false || isCorrect2 != false)
-            {
-                return false;
-            }
-            return true;
+            return isCorrect1 == false && isCorrect2 == false;
         }
     }
 }
