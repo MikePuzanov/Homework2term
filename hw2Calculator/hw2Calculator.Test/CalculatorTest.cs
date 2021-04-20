@@ -7,7 +7,6 @@ namespace hw2Calculator.Test
         private bool CheckTrueExpression(bool isCorrect1, bool isCorrect2, double result1, double result2, double mainResult)
         {
             return (!isCorrect1 || !isCorrect2) || (result1 - mainResult < 0.000001 || result2 - mainResult < 0.000001);
-
         }
 
         private bool CheckFalseExpression(bool isCorrect1, bool isCorrect2)
