@@ -36,7 +36,7 @@ namespace hw2Calculator
                         return 0;
                     }
                     double lastNumber = stack.Pop();
-                    if ( stack.IsEmpty() ||  (experssionArray[i] == '/' && Math.Abs(lastNumber - 0) < 0.00001))
+                    if (stack.IsEmpty() ||  (experssionArray[i] == '/' && Math.Abs(lastNumber - 0) < 0.00001))
                     {
                         stack.DeleteStack();
                         IsCorrect = false;
