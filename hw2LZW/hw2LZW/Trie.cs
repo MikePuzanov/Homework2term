@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace hw2LZW
+namespace Hw2LZW
 {
     /// <summary>
     /// вспомогательный класс для реализация Lzw
@@ -10,15 +10,15 @@ namespace hw2LZW
     {
         private class Node
         {
-            public byte Bytes { get; set; }
+            public byte Bytes { get; }
 
             public bool IsUsed { get; set; }
 
-            public int IdByte { get; set; }
+            public int IdByte;// { get; set; }
 
             public int CodeBytes { get; set; }
 
-            public Dictionary<byte, Node> Sons { get; set; }
+            public Dictionary<byte, Node> Sons;// { get; set; }
 
             public Node(byte bytes, int codeByte, bool isUsed)
             {
@@ -57,7 +57,7 @@ namespace hw2LZW
         }
 
         private bool CheckAdd(byte value, Node node)
-            => node.IsFind(value) == null ? true : false;
+            => node.IsFind(value) == null;
 
         public int LastCode { get; set; }
 
@@ -71,7 +71,7 @@ namespace hw2LZW
             if (runner == root)
             {
                 var check = runner.Sons[value];
-                if (check.IsUsed == false)
+                if (!check.IsUsed)
                 {
                     check.IsUsed = true;
                     runner = runner.Sons[value];
@@ -103,12 +103,5 @@ namespace hw2LZW
         /// <returns>возвращается код узла</returns>
         public int GetCode()
             => runner.Bytes;
-
-        /// <summary>
-        /// вернем последний код
-        /// </summary>
-        /// <returns>возвращается последний код</returns>
-        public int GetLastCode()
-            => LastCode;
     }
 }

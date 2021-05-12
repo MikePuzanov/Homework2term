@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.IO;
 
-namespace hw2LZW
+namespace Hw2LZW
 {
     /// <summary>
     /// класс для сжатия и разжатия
@@ -21,6 +21,7 @@ namespace hw2LZW
             }
             return 1;
         }
+
         /// <summary>
         /// функция сжатия файла
         /// </summary>
@@ -37,7 +38,7 @@ namespace hw2LZW
                 if (codeOfBytes != -1)
                 {
                     codes.Enqueue(codeOfBytes);
-                    trie.IsAdd(byter);
+                    //trie.IsAdd(byter);
                 }
             }
             codes.Enqueue(trie.GetCode());
@@ -78,11 +79,11 @@ namespace hw2LZW
             var codes = hashtable.Count;
             using var fileZipped = new FileStream(pathFile, FileMode.Open);
             using var file = new FileStream(pathFile.Substring(0, pathFile.Length - 7), FileMode.OpenOrCreate);
-            int maxLenght = fileZipped.ReadByte();
-            for (int i = 0; i < fileZipped.Length - 1; i += maxLenght)
+            int maxLength = fileZipped.ReadByte();
+            for (int i = 0; i < fileZipped.Length - 1; i += maxLength)
             {
                 var codeInBytes = new byte[4];
-                for (int j = 0; j < maxLenght; ++j)
+                for (int j = 0; j < maxLength; ++j)
                 {
                     codeInBytes[j] = (byte)fileZipped.ReadByte();
                 }

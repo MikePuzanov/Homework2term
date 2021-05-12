@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace hw2LZW
+namespace Hw2LZW
 {
     class Program
     {

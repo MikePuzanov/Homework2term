@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hw2LZW", "hw2LZW\hw2LZW.csproj", "{956FF906-65B8-45A7-AEEC-0C4F4D47EF5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hw2LZW", "hw2LZW\Hw2LZW.csproj", "{956FF906-65B8-45A7-AEEC-0C4F4D47EF5D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hw2Lzw.Test", "hw2LzwTest\hw2Lzw.Test.csproj", "{705F21DF-850F-439F-BF37-F0F8EF554073}"
 EndProject

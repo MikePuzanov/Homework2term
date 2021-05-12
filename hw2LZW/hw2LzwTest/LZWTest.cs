@@ -29,8 +29,8 @@ namespace hw2LzwTest
         {
             string path1 = "..\\..\\..\\TestTxt.txt";
             string path2 = "..\\..\\..\\TestTxtCopy.txt";
-            hw2LZW.LZW.Compress(path1);
-            hw2LZW.LZW.Decompress(path1 + ".zipped");
+            Hw2LZW.LZW.Compress(path1);
+            Hw2LZW.LZW.Decompress(path1 + ".zipped");
             File.Delete(path1 + ".zipped");
             Assert.IsTrue(Compare(path1, path2));
         }
@@ -40,8 +40,8 @@ namespace hw2LzwTest
         {
             string path1 = "..\\..\\..\\TestImg.jpg";
             string path2 = "..\\..\\..\\TestImgCopy.jpg";
-            hw2LZW.LZW.Compress(path1);
-            hw2LZW.LZW.Decompress(path1 + ".zipped");
+            Hw2LZW.LZW.Compress(path1);
+            Hw2LZW.LZW.Decompress(path1 + ".zipped");
             File.Delete(path1 + ".zipped");
             Assert.IsTrue(Compare(path1, path2));
         }
