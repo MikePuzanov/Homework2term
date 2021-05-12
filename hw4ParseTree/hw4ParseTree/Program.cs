@@ -1,14 +1,16 @@
 ﻿using System;
+using System.IO;
 
-namespace hw4ParseTree
+namespace Hw4ParseTree
 {
     class Program
     {
         static void Main(string[] args)
         {
             var tree = new ParseTree();
-            Console.WriteLine("Введите выражение -");
-            var expression = Console.ReadLine();
+            var file = new StreamReader("..\\..\\..\\Expression.txt");
+            var expression = file.ReadLine();
+            Console.WriteLine($"Выражение - {expression}");
             try
             {
                 tree.BuildTree(expression);

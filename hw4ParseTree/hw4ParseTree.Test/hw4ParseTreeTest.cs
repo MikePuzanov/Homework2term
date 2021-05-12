@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using System;
 
-namespace hw4ParseTree.Test
+namespace Hw4ParseTree.Test
 {
     public class Tests
     {
@@ -22,7 +22,7 @@ namespace hw4ParseTree.Test
         }
 
         [TestCase]
-        public void TestSubstraction()
+        public void TestSubtraction()
         {
             var str = "( - 2 3 )";
             tree.BuildTree(str);
@@ -30,7 +30,7 @@ namespace hw4ParseTree.Test
         }
 
         [TestCase]
-        public void TestMultiplacation()
+        public void TestMultiplication()
         {
             var str = "( * 2 3 )";
             tree.BuildTree(str);
@@ -61,7 +61,7 @@ namespace hw4ParseTree.Test
             Assert.AreEqual(1, tree.Calculate());
         }
 
-            [TestCase]
+        [TestCase]
         public void TestDivisionByZero()
         {
             var str = "( / 8 0 )";

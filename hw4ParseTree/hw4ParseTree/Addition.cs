@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw4ParseTree
+namespace Hw4ParseTree
 {
+    /// <summary>
+    /// класс для сложения
+    /// </summary>
     public class Addition : Operator
     {
         public override char Sign { get; }
 
-        public Addition(char sign, INode leftChild, INode rightChild)
+        public Addition(INode leftChild, INode rightChild)
         {
-            Sign = sign;
+            Sign = '+';
             LeftChild = leftChild;
             RightChild = rightChild;
         }

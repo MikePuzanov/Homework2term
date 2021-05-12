@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw4ParseTree
+namespace Hw4ParseTree
 {
+    /// <summary>
+    /// класс для вычитания
+    /// </summary>
     public class Subtraction : Operator
     {
         public override char Sign { get;  }
 
-        public Subtraction(char sign, INode leftChild, INode rightChild)
+        public Subtraction(INode leftChild, INode rightChild)
         {
-            Sign = sign;
+            Sign = '-';
             LeftChild = leftChild;
             RightChild = rightChild;
         }

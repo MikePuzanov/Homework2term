@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw4ParseTree
+namespace Hw4ParseTree
 {
+    /// <summary>
+    /// класс для умножения
+    /// </summary>
     public class Multiplication : Operator
     {
         public override char Sign { get; }
 
-        public Multiplication(char sign, INode leftChild, INode rightChild)
+        public Multiplication(INode leftChild, INode rightChild)
         {
-            Sign = sign;
+            Sign = '*';
             LeftChild = leftChild;
             RightChild = rightChild;
         }

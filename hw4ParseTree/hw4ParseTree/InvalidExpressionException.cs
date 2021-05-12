@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw4ParseTree
+namespace Hw4ParseTree
 {
+    /// <summary>
+    /// исключение для неправильных выражений6
+    /// </summary>
     public class InvalidExpressionException : Exception
     {
         public InvalidExpressionException()

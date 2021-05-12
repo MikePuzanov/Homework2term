@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw4ParseTree
+namespace Hw4ParseTree
 {
+    /// <summary>
+    /// класс для деления
+    /// </summary>
     public class  Division : Operator
     {
         public override char Sign { get; }
 
-        public Division(char sign, INode leftChild, INode rightChild)
+        public Division(INode leftChild, INode rightChild)
         {
-            Sign = sign;
+            Sign = '/';
             LeftChild = leftChild;
             RightChild = rightChild;
         }

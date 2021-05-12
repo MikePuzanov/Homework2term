@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw4ParseTree
+namespace Hw4ParseTree
 {
     class Operand : INode
     {

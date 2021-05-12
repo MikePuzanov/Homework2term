@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw4ParseTree
+namespace Hw4ParseTree
 {
+    /// <summary>
+    /// интерфейс узла в дереве разбора
+    /// </summary>
     public interface INode
     {
         /// <summary>
-        /// печатает, что находиться в узле
+        /// печатает, что находится в узле
         /// </summary>
         public void Print();
 

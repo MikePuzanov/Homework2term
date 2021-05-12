@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw4ParseTree
+namespace Hw4ParseTree
 {
     public class ParseTree
     {
         private INode root;
 
         /// <summary>
-        /// Функция потсроения дерева разбора
+        /// Функция построения дерева разбора
         /// </summary>
         public void BuildTree(string expression)
         {
@@ -63,32 +63,35 @@ namespace hw4ParseTree
                 if (line[index] == '(')
                 {
                     countBrackets++;
-                    index++;
                 }
                 else if (line[index] == ' ')
                 {
                     index++;
+                    continue;
                 }
                 else if (line[index] == ')')
                 {
                     countBrackets--;
-                    index++;
+                    if (countBrackets < 0)
+                    {
+                        return false;
+                    }
                 }
                 else if (line[index] == '-' && char.IsDigit(line[index + 1]) || char.IsDigit(line[index]))
                 {
                     var value = ReadNumber(line, ref index);
-                    index++;
                     countNumber++;
+                    continue;
                 }
                 else if (IsOperator(line[index]))
                 {
                     countNumber--;
-                    index++;
                 }
                 else
                 {
                     return false;
                 }
+                index++;
             }
             return countBrackets == 0 && countNumber == 1;
         }
@@ -111,10 +114,10 @@ namespace hw4ParseTree
                     index++;
                     return line[index - 1] switch
                     {
-                        '+' => new Addition(line[index - 1], Build(line, ref index), Build(line, ref index)),
-                        '-' => new Subtraction(line[index - 1], Build(line, ref index), Build(line, ref index)),
-                        '/' => new Division(line[index - 1], Build(line, ref index), Build(line, ref index)),
-                        '*' => new Multiplication(line[index - 1], Build(line, ref index), Build(line, ref index)),
+                        '+' => new Addition(Build(line, ref index), Build(line, ref index)),
+                        '-' => new Subtraction(Build(line, ref index), Build(line, ref index)),
+                        '/' => new Division(Build(line, ref index), Build(line, ref index)),
+                        '*' => new Multiplication(Build(line, ref index), Build(line, ref index)),
                         _ => throw new Exception(),
                     };
                 }
@@ -123,7 +126,7 @@ namespace hw4ParseTree
                     throw new InvalidExpressionException();
                 }
             }
-			return root;
+            return root;
         }
 
 
