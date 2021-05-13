@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace hw3B_tree.Test
+namespace Hw3B_tree.Test
 {
     public class Tests
     {
@@ -35,7 +35,7 @@ namespace hw3B_tree.Test
         {
             for (int i = 1; i <= 18; ++i)
             {
-                Assert.IsTrue(tree.IsConsist(i.ToString()));
+                Assert.IsTrue(tree.IsExists(i.ToString()));
             }
         }
 
@@ -63,10 +63,10 @@ namespace hw3B_tree.Test
             {
                 if (i == 8)
                 {
-                    Assert.IsFalse(tree.IsConsist(i.ToString()));
+                    Assert.IsFalse(tree.IsExists(i.ToString()));
                     continue;
                 }
-                Assert.IsTrue(tree.IsConsist(i.ToString()));
+                Assert.IsTrue(tree.IsExists(i.ToString()));
             }
         }
 

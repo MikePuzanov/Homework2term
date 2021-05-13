@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace hw3B_tree
+namespace Hw3B_tree
 {
     class Program
     {
@@ -25,6 +25,7 @@ namespace hw3B_tree
             tree.Insert("16", "16");
             tree.Insert("17", "17");
             tree.Insert("18", "18");
+            tree.Delete("8");
         }
     }
 }

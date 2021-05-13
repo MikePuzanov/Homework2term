@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\hw3B-tree\hw3B-tree.csproj" />
+    <ProjectReference Include="..\hw3B-tree\Hw3B-tree.csproj" />
   </ItemGroup>
 
 </Project>

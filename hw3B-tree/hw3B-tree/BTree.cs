@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw3B_tree
+namespace Hw3B_tree
 {
     /// <summary>
     /// btree class
     /// </summary>
     public class BTree
     {
-        public int MinimumDegreeOfTree { get; set; }
+        public int MinimumDegreeOfTree { get; }
 
         private class Node
         {
@@ -32,8 +32,6 @@ namespace hw3B_tree
 
         private Node root;
 
-        private Node runner;
-
         public BTree(int minimumDegreeOfTree)
         {
             if (minimumDegreeOfTree < 2)
@@ -43,7 +41,7 @@ namespace hw3B_tree
             MinimumDegreeOfTree = minimumDegreeOfTree;
         }
 
-        private Node FindNood(string key)
+        private Node FindNode(string key)
         {
             var node = root;
             while (!node.Leaf)
@@ -80,9 +78,9 @@ namespace hw3B_tree
         /// checking for the presence of a key in a tree
         /// </summary>
         /// <returns>true - if key is in tree, false - if key isn't in tree</returns>
-        public bool IsConsist(string key)
+        public bool IsExists(string key)
         {
-            var node = FindNood(key);
+            var node = FindNode(key);
             if (node == null)
             {
                 return false;
@@ -103,7 +101,7 @@ namespace hw3B_tree
         /// <returns>return value, if we find key and return null,if we don't find key</returns>
         public string GetValue(string key)
         {
-            var node = FindNood(key);
+            var node = FindNode(key);
             if (node == null)
             {
                 return null;
@@ -124,7 +122,7 @@ namespace hw3B_tree
         /// <returns>return true,if we change value, and false, if we don't change</returns>
         public bool ChangeValueByKey(string key, string value)
         {
-            var node = FindNood(key);
+            var node = FindNode(key);
             if (node == null)
             {
                 return false;
@@ -150,7 +148,7 @@ namespace hw3B_tree
             {
                 return false;
             }
-            return String.Compare(key, keyInNode) < 0 ? true : false;
+            return String.Compare(key, keyInNode) < 0;
         }
 
         /// <summary>
@@ -245,12 +243,12 @@ namespace hw3B_tree
         /// </summary>
         public void Delete(string key)
         {
-            runner = root;
+            var runner = root;
             if (root == null)
             {
                 return;
             }
-            Remove(key);
+            Remove(key, ref runner);
             if (root.CountKeys == 0)
             {
                 if (root.Leaf)
@@ -264,66 +262,58 @@ namespace hw3B_tree
             }
         }
 
-        private int FindKeyIndex(string key)
+        private int FindKeyIndex(string key, Node node)
         {
             var index = 0;
-            while (index < runner.CountKeys && CompareKey(runner.Keys[index].key, key))
+            while (index < node.CountKeys && CompareKey(node.Keys[index].key, key))
             {
                 index++;
             }
             return index;
         }
 
-        private void Remove(string key)
+        private void Remove(string key, ref Node cursor)
         {
-            var index = FindKeyIndex(key);
-            if (index < runner.CountKeys && runner.Keys[index].key == key)
+            var index = FindKeyIndex(key, cursor);
+            if (index < cursor.CountKeys && cursor.Keys[index].key == key)
             {
-                if (runner.Leaf)
+                if (cursor.Leaf)
                 {
-                    DeleteFromLeaf(index, runner);
+                    DeleteFromLeaf(index, cursor);
                 }
                 else
                 {
-                    DeleteFromNotLeaf(index, runner);
+                    DeleteFromNotLeaf(index, cursor);
                 }
             }
             else
             {
-                if (runner.Leaf)
+                if (cursor.Leaf)
                 {
                     return;
                 }
-                bool check;
-                if (index == runner.CountKeys)
-                {
-                    check = true;
-                }
-                else
-                {
-                    check = false;
-                }
-                var helpNode = runner.Sons[index];
+                bool check = index == cursor.CountKeys;
+                var helpNode = cursor.Sons[index];
                 if (helpNode.CountKeys < MinimumDegreeOfTree)
                 {
-                    Fill(index);
+                    Fill(index, ref cursor);
                 }
-                if (check && index < runner.CountKeys)
+                if (check && index < cursor.CountKeys)
                 {
-                    runner = runner.Sons[index - 1];
-                    Remove(key);
+                    cursor = cursor.Sons[index - 1];
+                    Remove(key, ref cursor);
                 }
                 else
                 {
-                    runner = runner.Sons[index];
-                    Remove(key);
+                    cursor = cursor.Sons[index];
+                    Remove(key, ref cursor);
                 }
             }
         }
 
         private void DeleteFromLeaf(int index, Node node)
         {
-            for ( int i = index + 1; i < node.CountKeys; ++i)
+            for (int i = index + 1; i < node.CountKeys; ++i)
             {
                 node.Keys[i - 1] = node.Keys[i];
             }
@@ -333,36 +323,35 @@ namespace hw3B_tree
         private void DeleteFromNotLeaf(int index, Node node)
         {
             string key = node.Keys[index].key;
+            var cursor = node;
             if (node.Sons[index].CountKeys >= MinimumDegreeOfTree)
             {
-                runner = node;
-                (string previousKey, string value) = GetPrev(index);
+                (string previousKey, string value) = GetPrev(index, cursor);
                 node.Keys[index].key = previousKey;
                 node.Keys[index].value = value;
-                runner = runner.Sons[index];
-                Remove(previousKey);
+                cursor = cursor.Sons[index];
+                Remove(previousKey, ref cursor);
             }
             else if (node.Sons[index + 1].CountKeys >= MinimumDegreeOfTree)
             {
-                runner = node;
-                (string succKey, string value) = GetSucc(index);
+                (string succKey, string value) = GetSucc(index, cursor);
                 node.Keys[index].key = succKey;
                 node.Keys[index].value = value;
-                runner = node.Sons[index + 1];
-                Remove(succKey);
+                cursor = node.Sons[index + 1];
+                Remove(succKey, ref cursor);
             }
             else
             {
-                runner = node;
-                Merge(index);
-                runner = node.Sons[index];
-                Remove(key);
+                cursor = node;////////
+                Merge(index, ref cursor);
+                cursor = node.Sons[index];
+                Remove(key, ref cursor);
             }
         }
 
-        private (string, string) GetPrev(int index)
+        private (string, string) GetPrev(int index, Node node)
         {
-            var helpNode = runner.Sons[index];
+            var helpNode = node.Sons[index];
             while (!helpNode.Leaf)
             {
                 helpNode = helpNode.Sons[helpNode.CountKeys];
@@ -370,9 +359,9 @@ namespace hw3B_tree
             return (helpNode.Keys[helpNode.CountKeys - 1].key, helpNode.Keys[helpNode.CountKeys - 1].value);
         }
 
-        private (string, string) GetSucc(int index)
+        private (string, string) GetSucc(int index, Node node)
         {
-            var helpNode = runner.Sons[index + 1];
+            var helpNode = node.Sons[index + 1];
             while (!helpNode.Leaf)
             {
                 helpNode = helpNode.Sons[0];
@@ -380,33 +369,33 @@ namespace hw3B_tree
             return (helpNode.Keys[0].key, helpNode.Keys[0].value);
         }
 
-        private void Fill(int index)
+        private void Fill(int index, ref Node cursor)
         {
-            if (index != 0 && runner.Sons[index - 1].CountKeys >= MinimumDegreeOfTree)
+            if (index != 0 && cursor.Sons[index - 1].CountKeys >= MinimumDegreeOfTree)
             {
-                TakeKeyInPrev(index);
+                TakeKeyInPrev(index, ref cursor);
             }
-            else if (index != runner.CountKeys && runner.Sons[index + 1].CountKeys >= MinimumDegreeOfTree)
+            else if (index != cursor.CountKeys && cursor.Sons[index + 1].CountKeys >= MinimumDegreeOfTree)
             {
-                TakeKeyInNext(index);
+                TakeKeyInNext(index, ref cursor);
             }
             else
             {
-                if (index != runner.CountKeys)
+                if (index != cursor.CountKeys)
                 {
-                    Merge(index);
+                    Merge(index, ref cursor);
                 }
                 else
                 {
-                    Merge(index - 1);
+                    Merge(index - 1, ref cursor);
                 }
             }
         }
 
-        private void TakeKeyInPrev(int index)
+        private void TakeKeyInPrev(int index, ref Node cursor)
         {
-            var child = runner.Sons[index];
-            var siblings = runner.Sons[index - 1];
+            var child = cursor.Sons[index];
+            var siblings = cursor.Sons[index - 1];
             for (int i = child.CountKeys - 1; i >= 0; --i)
             {
                 child.Keys[i + 1] = child.Keys[i];
@@ -418,26 +407,26 @@ namespace hw3B_tree
                     child.Sons[i + 1] = child.Sons[i];
                 }
             }
-            child.Keys[0] = runner.Keys[index - 1];
+            child.Keys[0] = cursor.Keys[index - 1];
             if (!child.Leaf)
             {
                 child.Sons[0] = siblings.Sons[siblings.CountKeys];
             }
-            runner.Keys[index - 1] = siblings.Keys[siblings.CountKeys - 1];
+            cursor.Keys[index - 1] = siblings.Keys[siblings.CountKeys - 1];
             child.CountKeys++;
             siblings.CountKeys--;
         }
 
-        private void TakeKeyInNext(int index)
+        private void TakeKeyInNext(int index, ref Node cursor)
         {
-            var child = runner.Sons[index];
-            var siblings = runner.Sons[index + 1];
-            child.Keys[child.CountKeys] = runner.Keys[index];
+            var child = cursor.Sons[index];
+            var siblings = cursor.Sons[index + 1];
+            child.Keys[child.CountKeys] = cursor.Keys[index];
             if (!child.Leaf)
             {
                 child.Sons[child.CountKeys + 1] = siblings.Sons[0];
             }
-            runner.Keys[index] = siblings.Keys[0];
+            cursor.Keys[index] = siblings.Keys[0];
             for (int i = 1; i < siblings.CountKeys; ++i)
             {
                 siblings.Keys[i - 1] = siblings.Keys[i];
@@ -453,11 +442,11 @@ namespace hw3B_tree
             siblings.CountKeys--;
         }
 
-        private void Merge(int index)
+        private void Merge(int index, ref Node cursor)
         {
-            var child = runner.Sons[index];
-            var siblings = runner.Sons[index + 1];
-            child.Keys[MinimumDegreeOfTree - 1] = runner.Keys[index];
+            var child = cursor.Sons[index];
+            var siblings = cursor.Sons[index + 1];
+            child.Keys[MinimumDegreeOfTree - 1] = cursor.Keys[index];
             for (int i = 0; i < siblings.CountKeys; i++)
             {
                 child.Keys[i + MinimumDegreeOfTree] = siblings.Keys[i];
@@ -469,16 +458,16 @@ namespace hw3B_tree
                     child.Sons[i + MinimumDegreeOfTree] = siblings.Sons[i];
                 }
             }
-            for (int i = index + 1; i < runner.CountKeys; i++)
+            for (int i = index + 1; i < cursor.CountKeys; i++)
             {
-                runner.Keys[i - 1] = runner.Keys[i];
+                cursor.Keys[i - 1] = cursor.Keys[i];
             }
-            for (int i = index + 2; i <= runner.CountKeys; i++)
+            for (int i = index + 2; i <= cursor.CountKeys; i++)
             {
-                runner.Sons[i - 1] = runner.Sons[i];
+                cursor.Sons[i - 1] = cursor.Sons[i];
             }
             child.CountKeys += siblings.CountKeys + 1;
-            runner.CountKeys--;
+            cursor.CountKeys--;
         }
     }
 }
