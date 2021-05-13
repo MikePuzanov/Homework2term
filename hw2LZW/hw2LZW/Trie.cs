@@ -14,11 +14,11 @@ namespace Hw2LZW
 
             public bool IsUsed { get; set; }
 
-            public int IdByte;// { get; set; }
+            public int IdByte;
 
             public int CodeBytes { get; set; }
 
-            public Dictionary<byte, Node> Sons;// { get; set; }
+            public Dictionary<byte, Node> Sons;
 
             public Node(byte bytes, int codeByte, bool isUsed)
             {

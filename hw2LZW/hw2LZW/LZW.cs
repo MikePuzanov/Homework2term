@@ -38,14 +38,15 @@ namespace Hw2LZW
                 if (codeOfBytes != -1)
                 {
                     codes.Enqueue(codeOfBytes);
-                    //trie.IsAdd(byter);
+                    trie.IsAdd(byter);
                 }
             }
             codes.Enqueue(trie.GetCode());
             var countOfBytes = GetCountOfBytes(BitConverter.GetBytes(trie.CountCodes));
             using var fileZipped = new FileStream(pathFile + ".zipped", FileMode.CreateNew);
             fileZipped.WriteByte((byte)countOfBytes);
-            for (int i = 0; i < codes.Count; i++)
+            var size = codes.Count;
+            for (int i = 0; i < size; i++)
             {
                 var helpArray = BitConverter.GetBytes(codes.Dequeue());
                 fileZipped.Write(helpArray, 0, countOfBytes);
