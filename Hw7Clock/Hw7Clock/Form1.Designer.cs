@@ -29,64 +29,46 @@ namespace Hw7Clock
         /// </summary>
         private void InitializeComponent()
         {
-            this.backgroundBox = new System.Windows.Forms.PictureBox();
-            this.hourBox = new System.Windows.Forms.PictureBox();
-            this.minuteBox = new System.Windows.Forms.PictureBox();
-            this.secondBox = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.backgroundBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hourBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.minuteBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.secondBox)).BeginInit();
+            this.components = new System.ComponentModel.Container();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // backgroundBox
+            // timer1
             // 
-            this.backgroundBox.Location = new System.Drawing.Point(54, 32);
-            this.backgroundBox.Name = "backgroundBox";
-            this.backgroundBox.Size = new System.Drawing.Size(350, 350);
-            this.backgroundBox.TabIndex = 0;
-            this.backgroundBox.TabStop = false;
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // hourBox
+            // pictureBox1
             // 
-            this.hourBox.Location = new System.Drawing.Point(74, 52);
-            this.hourBox.Name = "hourBox";
-            this.hourBox.Size = new System.Drawing.Size(350, 350);
-            this.hourBox.TabIndex = 1;
-            this.hourBox.TabStop = false;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(282, 253);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
-            // minuteBox
-            // 
-            this.minuteBox.Location = new System.Drawing.Point(111, 69);
-            this.minuteBox.Name = "minuteBox";
-            this.minuteBox.Size = new System.Drawing.Size(350, 350);
-            this.minuteBox.TabIndex = 2;
-            this.minuteBox.TabStop = false;
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(935, 450);
-            this.Controls.Add(this.secondBox);
-            this.Controls.Add(this.minuteBox);
-            this.Controls.Add(this.hourBox);
-            this.Controls.Add(this.backgroundBox);
+            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.Controls.Add(this.pictureBox1);
+            this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.backgroundBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hourBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.minuteBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.secondBox)).EndInit();
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox backgroundBox;
-        private System.Windows.Forms.PictureBox hourBox;
-        private System.Windows.Forms.PictureBox minuteBox;
-        private System.Windows.Forms.PictureBox secondBox;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
