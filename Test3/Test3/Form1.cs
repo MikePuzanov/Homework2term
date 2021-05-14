@@ -20,6 +20,7 @@ namespace Test3
         private void button1_Click(object sender, EventArgs e)
         {
             timer1.Enabled = true;
+            progressBar1.Value = 0;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
