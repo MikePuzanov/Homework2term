@@ -24,24 +24,13 @@ namespace hw4UniqueList
             }
         }
 
-        public List()
-        {
-            Size = 0;
-            head = null;
-        }
-
         private Node head;
-
-        private Node runner;
 
         /// <summary>
         /// Возвращает размер списка
         /// </summary>
         public int GetSize()
             => Size;
-
-        private Node GetNext(Node node)
-            => node.Next;
 
         /// <summary>
         /// Проверка на пустоту списка
@@ -61,23 +50,23 @@ namespace hw4UniqueList
         /// <summary>
         /// Функция вставки
         /// </summary>
-        /// <param name="possition">позиция узла</param>
+        /// <param name="position">позиция узла</param>
         /// <param name="value">значение в узле</param>
-        public virtual void Insert(int possition, int value)
+        public virtual void Insert(int position, int value)
         {
-            CheckSize(possition);
-            if (IsEmpty() && possition == 0)
+            CheckSize(position);
+            if (IsEmpty() && position == 0)
             {
                 head = new Node(value, null);
                 Size++;
                 return;
             }
-            else if (IsEmpty() && possition != 0)
+            else if (IsEmpty() && position != 0)
             {
                 throw new IndexOutOfRangeException();
             }
-            runner = head;
-            if (possition == 0)
+            var runner = head;
+            if (position == 0)
             {
                 var node = new Node(value, head);
                 head = node;
@@ -85,9 +74,9 @@ namespace hw4UniqueList
                 return;
             }
             int index = 1;
-            while (index < possition)
+            while (index < position)
             {
-                if (GetNext(runner) != null)
+                if (runner.Next != null)
                 {
                     runner = runner.Next;
                     index++;
@@ -97,24 +86,24 @@ namespace hw4UniqueList
                     throw new IndexOutOfRangeException();
                 }
             }
-            var NewNode = new Node(value, runner.Next);
-            runner.Next = NewNode;
+            var newNode = new Node(value, runner.Next);
+            runner.Next = newNode;
             Size++;
         }
 
         /// <summary>
         /// Функция удаления по индексу
         /// </summary>
-        /// <param name="possition">индекс узла</param>
+        /// <param name="position">индекс узла</param>
         /// <returns>возвращает значение в узле</returns>
-        public virtual int DeleteByIndex(int possition)
+        public virtual int DeleteByIndex(int position)
         {
-            CheckSize(possition);
+            CheckSize(position);
             if (IsEmpty())
             {
                 throw new IndexOutOfRangeException();
             }
-            if (possition == 1)
+            if (position == 1)
             {
                 var node = head.Next;
                 var result = head.Value;
@@ -122,11 +111,11 @@ namespace hw4UniqueList
                 Size--;
                 return result;
             }
-            runner = head;
+            var runner = head;
             int index = 1;
-            while (index < possition - 1)
+            while (index < position - 1)
             {
-                if (GetNext(runner) != null)
+                if (runner.Next != null)
                 {
                     runner = runner.Next;
                     index++;
@@ -154,71 +143,70 @@ namespace hw4UniqueList
                 Size--;
                 return;
             }
-            runner = head;
-            while (GetNext(runner) != null)
+            var runner  = head;
+            while (runner.Next != null)
             {
-                if (GetNext(runner).Value == value)
+                if (runner.Next.Value == value)
                 {
-                    runner.Next = GetNext(runner).Next;
+                    runner.Next = runner.Next.Next;
                     Size--;
                     return;
                 }
-                runner = GetNext(runner);
+                runner = runner.Next;
             }
             throw new ValueDoesNotExistException();
         }
 
-        /// <summary>
-        /// Смена значение в узле по индексу
-        /// </summary>
-        /// <param name="possition">индекс узла</param>
-        /// <param name="value">новое значение</param>
-        public virtual void ChangeByIndex(int possition, int value)
+        private Node GoToPosition(int position, Node node)
         {
-            CheckSize(possition);
             int index = 1;
-            runner = head;
-            while (index < possition && GetNext(runner) != null)
+            while (index < position)
             {
-                runner = GetNext(runner);
+                node = node.Next;
                 index++;
             }
+            return node;
+        }
+
+        /// <summary>
+        /// Смена значения в узле по индексу
+        /// </summary>
+        /// <param name="position">индекс узла</param>
+        /// <param name="value">новое значение</param>
+        public virtual void ChangeByIndex(int position, int value)
+        {
+            CheckSize(position);
+            var runner  = GoToPosition(position, head);
             runner.Value = value;
         }
 
         /// <summary>
         /// получить значение узла по его индексу
         /// </summary>
-        /// <param name="possition">индекс узла</param>
+        /// <param name="position">индекс узла</param>
         /// <returns>возвращает значение в узле</returns>
-        public int GetValueByIndex(int possition)
+        public int GetValueByIndex(int position)
         {
-            CheckSize(possition);
-            int index = 1;
-            runner = head;
-            while (index < possition && GetNext(runner) != null)
-            {
-                runner = GetNext(runner);
-                index++;
-            }
+            CheckSize(position);
+            var runner = GoToPosition(position, head);
             return runner.Value;
         }
 
         /// <summary>
-        /// проверка есть ли такое значение в списке
+        /// проверка, есть ли такое значение в списке
         /// </summary>
         /// <param name="value">значение, которое хотим проверить</param>
         /// <returns>возвращает true, если нашелся узел с таким значением</returns>
-        public bool IsConsist(int value)
+        public bool Contains(int value)
         {
-            runner = head;
+            var runner  = head;
             while (runner != null)
             {
                 if (runner.Value == value)
                 {
                     return true;
                 }
-                runner = GetNext(runner);
+                runner = runner.Next;
             }
             return false;
         }

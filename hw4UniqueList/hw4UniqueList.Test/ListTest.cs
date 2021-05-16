@@ -36,7 +36,9 @@ namespace hw4UniqueList.Test
             list.DeleteByIndex(2);
             list.DeleteByIndex(7);
             list.DeleteByIndex(1);
-            Assert.IsFalse(list.IsConsist(2) || list.IsConsist(8) || list.IsConsist(1));
+            Assert.IsFalse(list.Contains(2));
+            Assert.IsFalse(list.Contains(8));
+            Assert.IsFalse(list.Contains(1));
         }
 
         [TestCase]
@@ -57,7 +59,7 @@ namespace hw4UniqueList.Test
             list.DeleteByValue(2);
             list.DeleteByValue(8);
             list.DeleteByValue(1);
-            Assert.IsFalse(list.IsConsist(2) || list.IsConsist(8) || list.IsConsist(1));
+            Assert.IsFalse(list.Contains(2) || list.Contains(8) || list.Contains(1));
         }
 
         [TestCase]
@@ -82,7 +84,7 @@ namespace hw4UniqueList.Test
         [TestCase]
         public void TestGetSize()
         {
-            Assert.IsTrue(list.GetSize() == 8);
+            Assert.AreEqual(list.GetSize(), 8);
         }
 
         [TestCase]

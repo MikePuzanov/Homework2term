@@ -31,7 +31,7 @@ namespace hw4UniqueList.Test
         public void TestInsert()
         {
             list.Insert(3, 12);
-            Assert.IsTrue(list.IsConsist(12));
+            Assert.IsTrue(list.Contains(12));
         }
 
         [TestCase]
@@ -44,7 +44,7 @@ namespace hw4UniqueList.Test
         public void TestDeleteByValue()
         {
             list.DeleteByValue(6);
-            Assert.IsFalse(list.IsConsist(6));
+            Assert.IsFalse(list.Contains(6));
         }
 
         [TestCase]
@@ -57,7 +57,7 @@ namespace hw4UniqueList.Test
         public void TestDeleteByIndex()
         {
             list.DeleteByValue(3);
-            Assert.IsFalse(list.IsConsist(3));
+            Assert.IsFalse(list.Contains(3));
         }
 
         [TestCase]

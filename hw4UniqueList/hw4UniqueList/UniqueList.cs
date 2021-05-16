@@ -11,7 +11,7 @@ namespace hw4UniqueList
     {
         public override void Insert(int possition, int value)
         {
-            if (IsConsist(value))
+            if (Contains(value))
             {
                 throw new ValueIsAlreadyInListException("Такое значение уже есть в списке!");
             }    
@@ -20,29 +20,21 @@ namespace hw4UniqueList
 
         public override int DeleteByIndex(int possition)
         {
-            if (possition > GetSize() || possition < 1)
-            {
-                throw new IndexOutOfRangeException();
-            }
             return base.DeleteByIndex(possition);
         }
 
         public override void DeleteByValue(int value)
         {
-            if (!IsConsist(value))
-            {
-                throw new ValueDoesNotExistException("Такого значения в списке не существует!");
-            }
             base.DeleteByValue(value);
         }
 
         public override void ChangeByIndex(int possition, int value)
         {
-            if (possition > GetSize() || possition < 1)
+            if (GetValueByIndex(possition) == value)
             {
-                throw new IndexOutOfRangeException();
+                return;
             }
-            else if (IsConsist(value))
+            if (Contains(value))
             {
                 throw new ValueIsAlreadyInListException("Такое значение уже есть в списке!");
             }
