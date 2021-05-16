@@ -16,16 +16,6 @@ namespace Hw3B_tree
             tree.Insert("7", "7");
             tree.Insert("8", "8");
             tree.Insert("9", "9");
-            tree.Insert("10", "10");
-            tree.Insert("11", "11");
-            tree.Insert("12", "12");
-            tree.Insert("13", "13");
-            tree.Insert("14", "14");
-            tree.Insert("15", "15");
-            tree.Insert("16", "16");
-            tree.Insert("17", "17");
-            tree.Insert("18", "18");
-            tree.Delete("9");
         }
     }
 }
