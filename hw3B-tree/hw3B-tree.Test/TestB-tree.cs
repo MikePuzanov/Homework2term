@@ -6,33 +6,21 @@ namespace Hw3B_tree.Test
     {
         private BTree tree;
 
-        [SetUp]
-        public void Setup()
+        public BTree Setup(int MinimumDegreeOfTree)
         {
-            tree = new BTree(2);
-            tree.Insert("1", "1");
-            tree.Insert("2", "2");
-            tree.Insert("3", "3");
-            tree.Insert("4", "4");
-            tree.Insert("5", "5");
-            tree.Insert("6", "6");
-            tree.Insert("7", "7");
-            tree.Insert("8", "8");
-            tree.Insert("9", "9");
-            tree.Insert("10", "10");
-            tree.Insert("11", "11");
-            tree.Insert("12", "12");
-            tree.Insert("13", "13");
-            tree.Insert("14", "14");
-            tree.Insert("15", "15");
-            tree.Insert("16", "16");
-            tree.Insert("17", "17");
-            tree.Insert("18", "18");
+            tree = new BTree(MinimumDegreeOfTree);
+            for (int i = 1; i < 19; ++i)
+            {
+                tree.Insert(i.ToString(), i.ToString());
+
+            }
+            return tree;
         }
 
         [TestCase]
         public void CheckInsert()
         {
+            var tree = Setup(2);
             for (int i = 1; i <= 18; ++i)
             {
                 Assert.IsTrue(tree.IsExists(i.ToString()));
@@ -42,6 +30,7 @@ namespace Hw3B_tree.Test
         [TestCase]
         public void CheckGetValue()
         {
+            var tree = Setup(2);
             for (int i = 1; i <= 18; ++i)
             {
                 Assert.IsTrue(tree.GetValue(i.ToString()) == i.ToString());
@@ -51,13 +40,15 @@ namespace Hw3B_tree.Test
         [TestCase]
         public void CheckChangeValueByKey()
         {
+            var tree = Setup(2);
             tree.ChangeValueByKey("5", "ololo");
             Assert.IsTrue(tree.GetValue("5") == "ololo");
         }
         
         [TestCase]
-        public void CheckDelete()
+        public void CheckDeleteFromRoot()
         {
+            var tree = Setup(2);
             tree.Delete("8");
             for (int i = 1; i <= 18; ++i)
             {
@@ -70,5 +61,128 @@ namespace Hw3B_tree.Test
             }
         }
 
+        [TestCase]
+        public void CheckDeleteFromLeaf()
+        {
+            var tree = Setup(2);
+            tree.Delete("5");
+            for (int i = 1; i <= 18; ++i)
+            {
+                if (i == 5)
+                {
+                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    continue;
+                }
+                Assert.IsTrue(tree.IsExists(i.ToString()));
+            }
+        }
+
+        [TestCase]
+        public void CheckDeleteFromNotLeafWithChangeRoot()
+        {
+            var tree = Setup(2);
+            tree.Delete("6");
+            for (int i = 1; i <= 18; ++i)
+            {
+                if (i == 6)
+                {
+                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    continue;
+                }
+                Assert.IsTrue(tree.IsExists(i.ToString()));
+            }
+        }
+
+        [TestCase]
+        public void CheckDeleteFromLeafWithChangeValueInLeafs()
+        {
+            var tree = Setup(2);
+            tree.Delete("15");
+            for (int i = 1; i <= 18; ++i)
+            {
+                if (i == 15)
+                {
+                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    continue;
+                }
+                Assert.IsTrue(tree.IsExists(i.ToString()));
+            }
+        }
+
+        [TestCase]
+        public void CheckInsertWithAnotherDegree()
+        {
+            var tree = Setup(4);
+            for (int i = 1; i <= 18; ++i)
+            {
+                Assert.IsTrue(tree.IsExists(i.ToString()));
+            }
+        }
+
+        [TestCase]
+        public void CheckGetValueWithAnotherDegree()
+        {
+            var tree = Setup(4);
+            for (int i = 1; i <= 18; ++i)
+            {
+                Assert.IsTrue(tree.GetValue(i.ToString()) == i.ToString());
+            }
+        }
+
+        [TestCase]
+        public void CheckChangeValueByKeyWithAnotherDegree()
+        {
+            var tree = Setup(4);
+            tree.ChangeValueByKey("5", "ololo");
+            Assert.IsTrue(tree.GetValue("5") == "ololo");
+        }
+
+        [TestCase]
+        public void CheckDeleteFromRootWithAnotherDegree()
+        {
+            var tree = Setup(4);
+            tree.Delete("8");
+            for (int i = 1; i <= 18; ++i)
+            {
+                if (i == 8)
+                {
+                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    continue;
+                }
+                Assert.IsTrue(tree.IsExists(i.ToString()));
+            }
+        }
+
+        [TestCase]
+        public void CheckDeleteFromLeafWithMergeLefsWithAnotherDegree()
+        {
+            var tree = Setup(4);
+            tree.Delete("2");
+            for (int i = 1; i <= 18; ++i)
+            {
+                if (i == 2)
+                {
+                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    continue;
+                }
+                Assert.IsTrue(tree.IsExists(i.ToString()));
+            }
+        }
+
+        [TestCase]
+        public void CheckDeleteFromLeafWithChangeValueInLeafsWithAnotherDegree()
+        {
+            var tree = Setup(4);
+            tree.Delete("10");
+            for (int i = 1; i <= 18; ++i)
+            {
+                if (i == 10)
+                {
+                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    continue;
+                }
+                Assert.IsTrue(tree.IsExists(i.ToString()));
+            }
+        }
     }
 }
