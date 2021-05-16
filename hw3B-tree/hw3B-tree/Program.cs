@@ -26,29 +26,6 @@ namespace Hw3B_tree
             tree.Insert("17", "17");
             tree.Insert("18", "18");
             tree.Delete("9");
-            for (int i = 1; i <= 18; ++i)
-            {
-                if (i == 9)
-                {
-                    if (!tree.IsExists(i.ToString()))
-                    {
-                        Console.WriteLine("true");
-                    }
-                    else
-                    {
-                        Console.WriteLine("false");
-                    }
-                    continue;
-                }
-                if (tree.IsExists(i.ToString()))
-                {
-                    Console.WriteLine("true");
-                }
-                else
-                {
-                    Console.WriteLine("false");
-                }
-            }
         }
     }
 }
