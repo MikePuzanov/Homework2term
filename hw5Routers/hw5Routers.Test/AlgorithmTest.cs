@@ -1,11 +1,11 @@
 using NUnit.Framework;
 
-namespace hw5Routers.Test
+namespace Hw5Routers.Test
 {
     public class Tests
     {
         [Test]
-        public void AlgorithmTest()
+        public void AlgorithmTestFirst()
         {
             int[,] graphFirst =
             {
@@ -22,13 +22,18 @@ namespace hw5Routers.Test
                 {6, 8, 9, 0 }
             };
             Assert.AreEqual(AlgorithmPrima.Algorithm(graphFirst), graphFirstResult);
+        }
+
+        [Test]
+        public void AlgorithmTestSecond()
+        {
             int[,] graphSecond =
             {
                 {0, 0, 0, 3 },
                 {0, 0, 0, 6 },
                 {0, 0, 0, 9 },
                 {3, 6, 9, 0 }
-            }; 
+            };
             int[,] graphSecondResult =
              {
                 {0, 0, 0, 3 },

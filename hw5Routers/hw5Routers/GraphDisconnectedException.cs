@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw5Routers
+namespace Hw5Routers
 {
+    /// <summary>
+    /// Исключение, когда граф несвязанный
+    /// </summary>
     public class GraphDisconnectedException : Exception
     { 
         public GraphDisconnectedException()

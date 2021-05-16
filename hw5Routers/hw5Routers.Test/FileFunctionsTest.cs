@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System.IO;
 
-namespace hw5Routers.Test
+namespace Hw5Routers.Test
 {
     class FileFunctionsTest
     {

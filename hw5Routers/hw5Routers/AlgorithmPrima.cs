@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw5Routers
+namespace Hw5Routers
 {
+    /// <summary>
+    /// Класс, реализующий алгоритм Прима
+    /// </summary>
     public static class AlgorithmPrima
     {
         private static bool CheckGraph(int[,] matrix)
@@ -33,27 +36,30 @@ namespace hw5Routers
             return Check(vertexStatus);
         }
 
-        private static bool Check(int[] vetrexStatus)
+        private static bool Check(int[] vertexStatus)
         {
-            for (int i = 0; i < vetrexStatus.Length; i++)
+            for (int i = 0; i < vertexStatus.Length; i++)
             {
-                if (vetrexStatus[i] == 0)
+                if (vertexStatus[i] == 0)
                 {
                     return false;
                 }
             }
             return true;
         }
-        public static int MaxKey(int[] key, bool[] isConsist)
+
+        private static int MaxKey(int[] key, bool[] isConsist)
         {
             int max = int.MinValue;
             int indexMax = -1;
             for (int i = 0; i < key.Length; i++)
-                if (isConsist[i] == false && key[i] > max)
+            {
+                if (!isConsist[i] && key[i] > max)
                 {
                     max = key[i];
                     indexMax = i;
                 }
+            }
             return indexMax;
         }
 

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 
-namespace hw5Routers
+namespace Hw5Routers
 {
     public static class FileFunctions
     {
@@ -12,15 +12,14 @@ namespace hw5Routers
         /// <returns>матрицу графа</returns>
         public static int[,] CreateGraph(string filePath)
         {
-            int vertices = CountsVertexs(filePath);
+            int vertices = CountVertexes(filePath);
             var matrix = new int[vertices, vertices];
-            var file = new StreamReader(filePath);
+            using var file = new StreamReader(filePath);
             string stringLine = file.ReadLine();
             while (stringLine != null)
             {
-                stringLine = stringLine.Replace(':', ' ');
-                stringLine = stringLine.Replace(',', ' ');
-                string[] lineDrop = stringLine.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                string[] split = new string[] { " ", ",", ":" };
+                string[] lineDrop = stringLine.Split(split, StringSplitOptions.RemoveEmptyEntries);
                 var numberFirst = Int32.Parse(lineDrop[0]) - 1;
                 for (int i = 1; i < lineDrop.Length - 1; i += 2)
                 {
@@ -33,9 +32,9 @@ namespace hw5Routers
             return matrix;
         }
 
-        private static int CountsVertexs(string path)
+        private static int CountVertexes(string path)
         {
-            var file = new StreamReader(path);
+            using var file = new StreamReader(path);
             string stringLine = file.ReadLine();
             var list = new List<int>();
             int vertice = 0;
@@ -69,12 +68,12 @@ namespace hw5Routers
         /// </summary>
         public static void WriteInFile(int[,] matrix, string filePath)
         {
-            FileInfo fileOut = new FileInfo(filePath);
+            var fileOut = new FileInfo(filePath);
             if (fileOut.Exists)
             {
                 fileOut.Delete();
             }
-            FileStream newFile = new FileStream(filePath, FileMode.Create);
+            using var newFile = new FileStream(filePath, FileMode.Create);
             StreamWriter file = new StreamWriter(newFile);
             for (int i = 0; i < matrix.GetLength(0) - 1; i++)
             {
