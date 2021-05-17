@@ -1,19 +1,22 @@
 ﻿using System;
 using System.IO;
 
-namespace hw6Game
+namespace Hw6Game
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Map
     {
-        private struct PlayerCoordination
+        private struct PlayerCoordinates
         {
             public int x;
             public int y;
         }
 
-        static private string[] mapPic;
+        private string[] mapPic;
 
-        static private PlayerCoordination player = new PlayerCoordination(); 
+        static private PlayerCoordinates player = new PlayerCoordinates(); 
 
         /// <summary>
         /// create a map

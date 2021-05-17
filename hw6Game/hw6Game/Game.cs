@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace hw6Game
+namespace Hw6Game
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Game
     {
         private Map map;

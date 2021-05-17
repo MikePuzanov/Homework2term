@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using System;
 
-namespace hw6Game.Test
+namespace Hw6Game.Test
 {
     public class Tests
     {
@@ -12,7 +12,6 @@ namespace hw6Game.Test
         [SetUp]
         public void Setup()
         {
-            eventLoop = new EventLoop();
             map = new Map("..//..//..//TestMap.txt");
         }
 

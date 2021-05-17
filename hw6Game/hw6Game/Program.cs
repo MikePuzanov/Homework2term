@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace hw6Game
+namespace Hw6Game
 {
     class Program
     {
