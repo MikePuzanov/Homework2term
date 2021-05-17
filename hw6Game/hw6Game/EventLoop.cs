@@ -3,7 +3,7 @@
 namespace Hw6Game
 {
     /// <summary>
-    /// 
+    /// класс, генерирующий события
     /// </summary>
     public class EventLoop
     {

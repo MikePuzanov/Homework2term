@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hw6Game", "hw6Game\hw6Game.csproj", "{515F0DB5-A660-4F14-AA87-D5BF71260215}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hw6Game", "hw6Game\Hw6Game.csproj", "{515F0DB5-A660-4F14-AA87-D5BF71260215}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hw6Game.Test", "hw6Game.Test\hw6Game.Test.csproj", "{D99F3186-0BF2-43AB-88CF-4535AC3B0D76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hw6Game.Test", "hw6Game.Test\hw6Game.Test.csproj", "{D99F3186-0BF2-43AB-88CF-4535AC3B0D76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

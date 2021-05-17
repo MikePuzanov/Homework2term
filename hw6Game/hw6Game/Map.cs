@@ -4,7 +4,7 @@ using System.IO;
 namespace Hw6Game
 {
     /// <summary>
-    /// 
+    /// класс, работающий над построений карты
     /// </summary>
     public class Map
     {
