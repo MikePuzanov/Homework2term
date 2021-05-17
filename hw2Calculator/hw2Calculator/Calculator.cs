@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw2Calculator
+namespace Hw2Calculator
 {
     public static class Calculator
     {
@@ -28,7 +28,7 @@ namespace hw2Calculator
                     number = "";
                     continue;
                 }
-                if (IsOperand(expressionArray[i]))
+                if (IsOperator(expressionArray[i]))
                 {
                     if (stack.IsEmpty())
                     {
@@ -37,7 +37,7 @@ namespace hw2Calculator
                     double lastNumber = stack.Pop();
                     if (stack.IsEmpty() || (expressionArray[i] == '/' && Math.Abs(lastNumber - 0) < 0.00001))
                     {
-                        stack.DeleteStack();
+                        stack.ClearStack();
                         return (0, false);
                     }
                     stack.Push(lastNumber);
@@ -45,7 +45,7 @@ namespace hw2Calculator
                 }
                 else
                 {
-                    stack.DeleteStack();
+                    stack.ClearStack();
                     return (0, false);
                 }
             }
@@ -58,14 +58,12 @@ namespace hw2Calculator
             {
                 return (result, true);
             }
-            stack.DeleteStack();
+            stack.ClearStack();
             return (0, false);
         }
 
-        private static bool IsOperand(char symbol)
-        {
-            return symbol == '+' || symbol == '-' || symbol == '*' || symbol == '/';
-        }
+        private static bool IsOperator(char symbol)
+            => symbol == '+' || symbol == '-' || symbol == '*' || symbol == '/';
 
         private static void ArithmeticOperation(char operation, IStack stack)
         {

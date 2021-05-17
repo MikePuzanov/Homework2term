@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw2Calculator
+namespace Hw2Calculator
 {
     public interface IStack
     {
@@ -12,6 +12,6 @@ namespace hw2Calculator
 
         bool IsEmpty();
 
-        void DeleteStack();
+        void ClearStack();
     }
 }

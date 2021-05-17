@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw2Calculator
+namespace Hw2Calculator
 {
     class Test
     {

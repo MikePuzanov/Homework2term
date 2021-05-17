@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\hw2Calculator\hw2Calculator.csproj" />
+    <ProjectReference Include="..\hw2Calculator\Hw2Calculator.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw2Calculator
+namespace Hw2Calculator
 {
     public class StackArray : IStack
     {
@@ -36,11 +36,10 @@ namespace hw2Calculator
         }
 
         public bool IsEmpty()
-        {
-            return countNumbersInStack == 0;
-        }
+            => countNumbersInStack == 0;
 
-        public void DeleteStack()
+
+        public void ClearStack()
         {
             stackElements = new double[5];
             countNumbersInStack = 0;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw2Calculator
+namespace Hw2Calculator
 {
     public class StackList : IStack
     {
@@ -31,7 +31,7 @@ namespace hw2Calculator
         public bool IsEmpty()
             => head == null;
 
-        public void DeleteStack()
+        public void ClearStack()
             => head = null;
     }
 }

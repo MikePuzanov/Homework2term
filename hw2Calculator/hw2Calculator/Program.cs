@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace hw2Calculator
+namespace Hw2Calculator
 {
     class Program
     {

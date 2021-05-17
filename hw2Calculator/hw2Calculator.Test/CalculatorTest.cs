@@ -1,50 +1,71 @@
 using NUnit.Framework;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
-namespace hw2Calculator.Test
+namespace Hw2Calculator.Test
 {
-    public class Tests
+    public class CalculatorTests
     {
-        private bool CheckTrueExpression(bool isCorrect1, bool isCorrect2, double result1, double result2, double mainResult)
+        private bool CheckTrueExpression(bool isCorrect, double result, double mainResult)
         {
-            return (!isCorrect1 || !isCorrect2) || (result1 - mainResult < 0.000001 || result2 - mainResult < 0.000001);
+            return !isCorrect || Math.Abs(result - mainResult) < 0.000001;
         }
 
-        private bool CheckFalseExpression(bool isCorrect1, bool isCorrect2)
+        private static (string Test, double Result)[] CorrectDataForTests = new[]
         {
-            return (!isCorrect1 && !isCorrect2);
+            ("2 4 * 2 -", 6.0),
+            ("2 2 +", 4.0),
+            ("16 5 -", 11.0),
+            ("5 5 *", 25.0),
+            ("5 -5 *", -25.0),
+            ("-5 -5 *", 25),
+            ("25 5 /", 5),
+            ("25 -5 /", -5),
+            ("-25 -5 /", 5),
+            ("-25 -5 /", 5),
+            ("-25 -5 /", 5),
+            ("1 2 + 5 2 - *", 9),
+            ("6 3 - 1 2 * /", 1.5),
+        };
+
+        [TestCaseSource(nameof(CorrectDataForTest))]
+        public void CalculatorTestForCorrectData(IStack stack, string expresion, double mainResult)
+        {
+            (var result, var isCorrect) = Calculator.CalculatorExpression(expresion, stack);
+            Assert.IsTrue(CheckTrueExpression(isCorrect, result, mainResult));
         }
 
-        [Test]
-        public void TestTrueExpression()
+        private static IEnumerable<TestCaseData> CorrectDataForTest
+            =>
+                CorrectDataForTests.SelectMany(DataForTests => new TestCaseData[]
+                {
+                    new TestCaseData(new StackList(), DataForTests.Test, DataForTests.Result),
+                    new TestCaseData(new StackArray(), DataForTests.Test, DataForTests.Result)
+                });
+
+        private static string[] UncorrectDataForTests = new[]
         {
-            string expresion = "2 4 * 2 -";
-            IStack stack1 = new StackList();
-            IStack stack2 = new StackArray();
-            (var result1, var isCorrect1) = Calculator.CalculatorExpression(expresion, stack1);
-            (var result2, var isCorrect2) = Calculator.CalculatorExpression(expresion, stack2);
-            Assert.IsTrue(CheckTrueExpression(isCorrect1, isCorrect2, result1, result2, 6.0));
+            ("2 + 2"),
+            ("2 / 0"),
+            ("2 +"),
+            ("2 asd"),
+            ("2 2 + 2"),
+        };
+
+        [TestCaseSource(nameof(CorrectDataForTest))]
+        public void CalculatorTestForUncorrectData(IStack stack, string expresion, double mainResult)
+        {
+            (var result, var isCorrect) = Calculator.CalculatorExpression(expresion, stack);
+            Assert.IsTrue(CheckTrueExpression(isCorrect, result, mainResult));
         }
 
-        [Test]
-        public void TestFalseExpression()
-        {
-            string expresion = "2 4 * 2";
-            IStack stack1 = new StackList();
-            IStack stack2 = new StackArray();
-            (var result1, var isCorrect1) = Calculator.CalculatorExpression(expresion, stack1);
-            (var result2, var isCorrect2) = Calculator.CalculatorExpression(expresion, stack2);
-            Assert.IsTrue(CheckFalseExpression(isCorrect1, isCorrect2));
-        }
-
-        [Test]
-        public void TestDivisionByZero()
-        {
-            string expresion = "2 0 /";
-            IStack stack1 = new StackList();
-            IStack stack2 = new StackArray();
-            (var result1, var isCorrect1) = Calculator.CalculatorExpression(expresion, stack1);
-            (var result2, var isCorrect2) = Calculator.CalculatorExpression(expresion, stack2);
-            Assert.IsTrue(CheckFalseExpression(isCorrect1, isCorrect2));
-        }
+        private static IEnumerable<TestCaseData> UncorrectDataForTest
+            =>
+                UncorrectDataForTests.SelectMany(DataForTests => new TestCaseData[]
+                {
+                    new TestCaseData(new StackList(), UncorrectDataForTests),
+                    new TestCaseData(new StackArray(), UncorrectDataForTests)
+                });
     }
 }
