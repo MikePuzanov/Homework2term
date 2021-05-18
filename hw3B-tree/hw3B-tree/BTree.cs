@@ -36,7 +36,7 @@ namespace Hw3B_tree
         {
             if (minimumDegreeOfTree < 2)
             {
-                throw new ArgumentException("Минимальная степень дерева выбрана неправильна!");
+                throw new ArgumentException("Минимальная степень дерева выбрана неправильно!");
             }
             MinimumDegreeOfTree = minimumDegreeOfTree;
         }
@@ -78,7 +78,7 @@ namespace Hw3B_tree
         /// checking for the presence of a key in a tree
         /// </summary>
         /// <returns>true - if key is in tree, false - if key isn't in tree</returns>
-        public bool IsExists(string key)
+        public bool Exists(string key)
         {
             var node = FindNode(key);
             if (node == null)
@@ -98,7 +98,7 @@ namespace Hw3B_tree
         /// <summary>
         /// get value by key
         /// </summary>
-        /// <returns>return value, if we find key and return null,if we don't find key</returns>
+        /// <returns>return value, if we find key and return null, if we don't find key</returns>
         public string GetValue(string key)
         {
             var node = FindNode(key);
@@ -251,14 +251,7 @@ namespace Hw3B_tree
             Remove(key, ref runner);
             if (root.CountKeys == 0)
             {
-                if (root.Leaf)
-                {
-                    root = null;
-                }
-                else
-                {
-                    root = root.Sons[0];
-                }
+                root = root.Leaf ? null : root.Sons[0];
             }
         }
 
@@ -342,7 +335,6 @@ namespace Hw3B_tree
             }
             else
             {
-                cursor = node;////////
                 Merge(index, ref cursor);
                 cursor = node.Sons[index];
                 Remove(key, ref cursor);

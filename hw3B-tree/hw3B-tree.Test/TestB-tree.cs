@@ -6,13 +6,12 @@ namespace Hw3B_tree.Test
     {
         private BTree tree;
 
-        public BTree Setup(int MinimumDegreeOfTree)
+        public BTree Setup(int minimumDegreeOfTree)
         {
-            tree = new BTree(MinimumDegreeOfTree);
+            tree = new BTree(minimumDegreeOfTree);
             for (int i = 1; i < 19; ++i)
             {
                 tree.Insert(i.ToString(), i.ToString());
-
             }
             return tree;
         }
@@ -23,7 +22,7 @@ namespace Hw3B_tree.Test
             var tree = Setup(2);
             for (int i = 1; i <= 18; ++i)
             {
-                Assert.IsTrue(tree.IsExists(i.ToString()));
+                Assert.IsTrue(tree.Exists(i.ToString()));
             }
         }
 
@@ -33,7 +32,7 @@ namespace Hw3B_tree.Test
             var tree = Setup(2);
             for (int i = 1; i <= 18; ++i)
             {
-                Assert.IsTrue(tree.GetValue(i.ToString()) == i.ToString());
+                Assert.AreEqual(i.ToString(), tree.GetValue(i.ToString()));
             }
         }
         
@@ -42,7 +41,7 @@ namespace Hw3B_tree.Test
         {
             var tree = Setup(2);
             tree.ChangeValueByKey("5", "ololo");
-            Assert.IsTrue(tree.GetValue("5") == "ololo");
+            Assert.AreEqual("ololo", tree.GetValue("5"));
         }
         
         [TestCase]
@@ -54,10 +53,10 @@ namespace Hw3B_tree.Test
             {
                 if (i == 8)
                 {
-                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    Assert.IsFalse(tree.Exists(i.ToString()));
                     continue;
                 }
-                Assert.IsTrue(tree.IsExists(i.ToString()));
+                Assert.IsTrue(tree.Exists(i.ToString()));
             }
         }
 
@@ -70,10 +69,10 @@ namespace Hw3B_tree.Test
             {
                 if (i == 5)
                 {
-                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    Assert.IsFalse(tree.Exists(i.ToString()));
                     continue;
                 }
-                Assert.IsTrue(tree.IsExists(i.ToString()));
+                Assert.IsTrue(tree.Exists(i.ToString()));
             }
         }
 
@@ -86,10 +85,10 @@ namespace Hw3B_tree.Test
             {
                 if (i == 6)
                 {
-                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    Assert.IsFalse(tree.Exists(i.ToString()));
                     continue;
                 }
-                Assert.IsTrue(tree.IsExists(i.ToString()));
+                Assert.IsTrue(tree.Exists(i.ToString()));
             }
         }
 
@@ -102,10 +101,10 @@ namespace Hw3B_tree.Test
             {
                 if (i == 15)
                 {
-                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    Assert.IsFalse(tree.Exists(i.ToString()));
                     continue;
                 }
-                Assert.IsTrue(tree.IsExists(i.ToString()));
+                Assert.IsTrue(tree.Exists(i.ToString()));
             }
         }
 
@@ -115,7 +114,7 @@ namespace Hw3B_tree.Test
             var tree = Setup(4);
             for (int i = 1; i <= 18; ++i)
             {
-                Assert.IsTrue(tree.IsExists(i.ToString()));
+                Assert.IsTrue(tree.Exists(i.ToString()));
             }
         }
 
@@ -125,7 +124,7 @@ namespace Hw3B_tree.Test
             var tree = Setup(4);
             for (int i = 1; i <= 18; ++i)
             {
-                Assert.IsTrue(tree.GetValue(i.ToString()) == i.ToString());
+                Assert.AreEqual(i.ToString(), tree.GetValue(i.ToString()));
             }
         }
 
@@ -134,7 +133,7 @@ namespace Hw3B_tree.Test
         {
             var tree = Setup(4);
             tree.ChangeValueByKey("5", "ololo");
-            Assert.IsTrue(tree.GetValue("5") == "ololo");
+            Assert.AreEqual("ololo", tree.GetValue("5"));
         }
 
         [TestCase]
@@ -146,10 +145,10 @@ namespace Hw3B_tree.Test
             {
                 if (i == 8)
                 {
-                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    Assert.IsFalse(tree.Exists(i.ToString()));
                     continue;
                 }
-                Assert.IsTrue(tree.IsExists(i.ToString()));
+                Assert.IsTrue(tree.Exists(i.ToString()));
             }
         }
 
@@ -162,10 +161,10 @@ namespace Hw3B_tree.Test
             {
                 if (i == 2)
                 {
-                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    Assert.IsFalse(tree.Exists(i.ToString()));
                     continue;
                 }
-                Assert.IsTrue(tree.IsExists(i.ToString()));
+                Assert.IsTrue(tree.Exists(i.ToString()));
             }
         }
 
@@ -178,10 +177,10 @@ namespace Hw3B_tree.Test
             {
                 if (i == 10)
                 {
-                    Assert.IsFalse(tree.IsExists(i.ToString()));
+                    Assert.IsFalse(tree.Exists(i.ToString()));
                     continue;
                 }
-                Assert.IsTrue(tree.IsExists(i.ToString()));
+                Assert.IsTrue(tree.Exists(i.ToString()));
             }
         }
     }
