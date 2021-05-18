@@ -2,35 +2,25 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw4UniqueList
+namespace Hw4UniqueList
 {
     /// <summary>
     /// Список без повторяющихся значений
     /// </summary>
     public class UniqueList : List
     {
-        public override void Insert(int possition, int value)
+        public override void Insert(int position, int value)
         {
             if (Contains(value))
             {
                 throw new ValueIsAlreadyInListException("Такое значение уже есть в списке!");
             }    
-            base.Insert(possition, value);
+            base.Insert(position, value);
         }
 
-        public override int DeleteByIndex(int possition)
+        public override void ChangeByIndex(int position, int value)
         {
-            return base.DeleteByIndex(possition);
-        }
-
-        public override void DeleteByValue(int value)
-        {
-            base.DeleteByValue(value);
-        }
-
-        public override void ChangeByIndex(int possition, int value)
-        {
-            if (GetValueByIndex(possition) == value)
+            if (GetValueByIndex(position) == value)
             {
                 return;
             }
@@ -38,7 +28,7 @@ namespace hw4UniqueList
             {
                 throw new ValueIsAlreadyInListException("Такое значение уже есть в списке!");
             }
-            base.ChangeByIndex(possition, value);
+            base.ChangeByIndex(position, value);
         }
     }
 }

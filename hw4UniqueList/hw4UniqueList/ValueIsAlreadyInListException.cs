@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw4UniqueList
+namespace Hw4UniqueList
 {
     /// <summary>
     /// исключение для unique list, когда значение уже содержиться в списке

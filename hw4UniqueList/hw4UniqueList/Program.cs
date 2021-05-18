@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace hw4UniqueList
+namespace Hw4UniqueList
 {
     class Program
     {

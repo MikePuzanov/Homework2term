@@ -1,9 +1,9 @@
 using NUnit.Framework;
 using System;
 
-namespace hw4UniqueList.Test
+namespace Hw4UniqueList.Test
 {
-    public class Tests
+    public class ListTests
     {
         private List list;
 
@@ -59,7 +59,9 @@ namespace hw4UniqueList.Test
             list.DeleteByValue(2);
             list.DeleteByValue(8);
             list.DeleteByValue(1);
-            Assert.IsFalse(list.Contains(2) || list.Contains(8) || list.Contains(1));
+            Assert.IsFalse(list.Contains(2));
+            Assert.IsFalse(list.Contains(8));
+            Assert.IsFalse(list.Contains(1));
         }
 
         [TestCase]
@@ -84,7 +86,7 @@ namespace hw4UniqueList.Test
         [TestCase]
         public void TestGetSize()
         {
-            Assert.AreEqual(list.GetSize(), 8);
+            Assert.AreEqual(8, list.GetSize());
         }
 
         [TestCase]

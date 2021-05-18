@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace hw4UniqueList.Test
+namespace Hw4UniqueList.Test
 {
     class UniqueListTest
     {

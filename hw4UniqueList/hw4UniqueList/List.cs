@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hw4UniqueList
+namespace Hw4UniqueList
 {
     /// <summary>
     /// Список
     /// </summary>
     public class List
     {
-        private int Size { get; set; }
-
         private class Node
         {
             public int Value { get; set; }
@@ -24,13 +22,15 @@ namespace hw4UniqueList
             }
         }
 
+        private int size;
+
         private Node head;
 
         /// <summary>
         /// Возвращает размер списка
         /// </summary>
         public int GetSize()
-            => Size;
+            => size;
 
         /// <summary>
         /// Проверка на пустоту списка
@@ -41,7 +41,7 @@ namespace hw4UniqueList
 
         private void CheckSize(int index)
         {
-            if (index > Size || index < 0)
+            if (index > size || index < 0)
             {
                 throw new IndexOutOfRangeException();
             }
@@ -58,7 +58,7 @@ namespace hw4UniqueList
             if (IsEmpty() && position == 0)
             {
                 head = new Node(value, null);
-                Size++;
+                size++;
                 return;
             }
             else if (IsEmpty() && position != 0)
@@ -70,7 +70,7 @@ namespace hw4UniqueList
             {
                 var node = new Node(value, head);
                 head = node;
-                Size++;
+                size++;
                 return;
             }
             int index = 1;
@@ -88,7 +88,7 @@ namespace hw4UniqueList
             }
             var newNode = new Node(value, runner.Next);
             runner.Next = newNode;
-            Size++;
+            size++;
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace hw4UniqueList
                 var node = head.Next;
                 var result = head.Value;
                 head = node;
-                Size--;
+                size--;
                 return result;
             }
             var runner = head;
@@ -127,7 +127,7 @@ namespace hw4UniqueList
             }
             var returnResult = runner.Next.Value;
             runner.Next = runner.Next.Next;
-            Size--;
+            size--;
             return returnResult;
         }
 
@@ -140,7 +140,7 @@ namespace hw4UniqueList
             if (head.Value == value)
             {
                 head = head.Next;
-                Size--;
+                size--;
                 return;
             }
             var runner  = head;
@@ -149,7 +149,7 @@ namespace hw4UniqueList
                 if (runner.Next.Value == value)
                 {
                     runner.Next = runner.Next.Next;
-                    Size--;
+                    size--;
                     return;
                 }
                 runner = runner.Next;
