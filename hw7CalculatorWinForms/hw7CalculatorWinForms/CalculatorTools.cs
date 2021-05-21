@@ -4,29 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace hw7CalculatorWinForms
+namespace Hw7CalculatorWinForms
 {
     static public class CalculatorTools
     {
-        static public void Calculate(ref string str1, string str2, string sign)
+        static public void Calculate(ref double str1, double str2, string sign)
         {
             switch (sign)
             {
                 case "+":
-                    str1 = Convert.ToString(double.Parse(str1) + double.Parse(str2));
+                    str1 = str1 + str2;
                     break;
                 case "-":
-                    str1 = Convert.ToString(double.Parse(str1) - double.Parse(str2));
+                    str1 = str1 - str2;
                     break;
                 case "*":
-                    str1 = Convert.ToString(double.Parse(str1) * double.Parse(str2));
+                    str1 = str1 * str2;
                     break;
                 case "/":
-                    if (double.Parse(str2) == 0)
+                    if (str2 == 0)
                     {
                         throw new DivideByZeroException();
                     }
-                    str1 = Convert.ToString(double.Parse(str1) / double.Parse(str2));
+                    str1 = str1 / str2;
                     break;
             }
         }

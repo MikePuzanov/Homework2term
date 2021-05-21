@@ -1,5 +1,5 @@
 ﻿
-namespace hw7CalculatorWinForms
+namespace Hw7CalculatorWinForms
 {
     partial class CalculatorForms
     {
@@ -140,7 +140,6 @@ namespace hw7CalculatorWinForms
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(428, 355);
             this.tableLayoutPanel1.TabIndex = 21;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint_1);
             // 
             // buttonText
             // 
@@ -337,7 +336,7 @@ namespace hw7CalculatorWinForms
             this.Controls.Add(this.tableLayoutPanel1);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "CalculatorForms";
-            this.Text = "Form1";
+            this.Text = "Calculator";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

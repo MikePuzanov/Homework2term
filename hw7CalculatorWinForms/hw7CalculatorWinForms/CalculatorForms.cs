@@ -8,136 +8,141 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace hw7CalculatorWinForms
+namespace Hw7CalculatorWinForms
 {
     public partial class CalculatorForms : Form
     {
-        private string NumberFirst = "";
+        private string numberFirst = "";
 
-        private string NumberSecond = "";
+        private string numberSecond = "";
 
-        private int CountNumber = 0;
+        private int countNumber = 0;
 
         private string Operator = "";
 
-        private bool IsMinus = false;
+        private bool isMinus = false;
 
         public CalculatorForms()
-        {
-            InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
+            => InitializeComponent();
 
         private void button1_MouseClick(object sender, MouseEventArgs e)
         {
             if (Operator != "")
             {
-                CountNumber = 1;
+                countNumber = 1;
             }
-            if (CountNumber == 0)
+            if (countNumber == 0)
             {
-                NumberFirst += (sender as Button).Text;
-                buttonText.Text = NumberFirst;
+                numberFirst += (sender as Button).Text;
+                buttonText.Text = numberFirst;
             }
             else
             {
-                NumberSecond += (sender as Button).Text;
-                buttonText.Text = NumberSecond;
+                numberSecond += (sender as Button).Text;
+                buttonText.Text = numberSecond;
             }
         }
 
         private void buttonPlusMinus_MouseClick(object sender, MouseEventArgs e)
         {
-            if (!IsMinus)
+            if (!isMinus)
             {
-                if (CountNumber == 0)
+                if (countNumber == 0)
                 {
-                    NumberFirst = "-" + NumberFirst;
-                    buttonText.Text = NumberFirst;
+                    numberFirst = "-" + numberFirst;
+                    buttonText.Text = numberFirst;
                 }
                 else
                 {
-                    NumberSecond = "-" + NumberSecond;
-                    buttonText.Text = NumberSecond;
+                    numberSecond = "-" + numberSecond;
+                    buttonText.Text = numberSecond;
                 }
             }
             else
             {
-                if (CountNumber == 0)
+                if (countNumber == 0)
                 {
-                    NumberFirst = NumberFirst.Substring(1);
-                    buttonText.Text = NumberFirst;
+                    numberFirst = numberFirst.Substring(1);
+                    buttonText.Text = numberFirst;
                 }
                 else
                 {
-                    NumberSecond = NumberSecond.Substring(1);
-                    buttonText.Text = NumberSecond;
+                    numberSecond = numberSecond.Substring(1);
+                    buttonText.Text = numberSecond;
                 }
             }
-            IsMinus = !IsMinus;
+            isMinus = !isMinus;
         }
 
         private void buttonPlus_MouseClick(object sender, MouseEventArgs e)
         {
             Operator = (sender as Button).Text;
-            if (NumberFirst != "" && NumberSecond != "")
+            if (numberFirst != "" && numberSecond != "")
             {
-                CalculatorTools.Calculate(ref NumberFirst, NumberSecond, Operator);
-                Operator = NumberSecond = "";
-                CountNumber = 1;
-                buttonText.Text = NumberFirst;
+                double number1 = double.Parse(numberFirst);
+                double number2 = double.Parse(numberSecond);
+                CalculatorTools.Calculate(ref number1, number2, Operator);
+                numberFirst = Convert.ToString(number1);
+                numberSecond = "";
+                Operator ="";
+                countNumber = 1;
+                buttonText.Text = numberFirst;
             }
         }
 
 
         private void buttonEqual_MouseClick(object sender, MouseEventArgs e)
         {
+            double number1 = double.Parse(numberFirst);
+            double number2 = double.Parse(numberSecond);
             try
             {
-                CalculatorTools.Calculate(ref NumberFirst, NumberSecond, Operator);
+                CalculatorTools.Calculate(ref number1, number2, Operator);
             }
             catch (DivideByZeroException)
             {
-                NumberFirst = NumberSecond = Operator = "";
+                numberFirst ="";
+                numberSecond = "";
+                Operator = "";
                 buttonText.Text = "Error";
-                CountNumber = 0;
+                countNumber = 0;
                 return;
             }
-            NumberSecond = Operator = "";
-            CountNumber = 1;
-            buttonText.Text = NumberFirst;
+            numberFirst = Convert.ToString(number1);
+            numberSecond = "";
+            Operator = "";
+            countNumber = 1;
+            buttonText.Text = numberFirst;
         }
 
         private void buttonDelete_MouseClick(object sender, MouseEventArgs e)
         {
             if (Operator == "")
             {
-                if (NumberFirst.Length == 0)
+                if (numberFirst.Length == 0)
                 {
                     return;
                 }
-                NumberFirst = NumberFirst.Substring(0, NumberFirst.Length - 1);
-                buttonText.Text = NumberFirst;
+                numberFirst = numberFirst.Substring(0, numberFirst.Length - 1);
+                buttonText.Text = numberFirst;
             }
             else
             {
-                if (NumberSecond.Length == 0)
+                if (numberSecond.Length == 0)
                 {
                     return;
                 }
-                NumberSecond = NumberSecond.Substring(0, NumberSecond.Length - 1);
-                buttonText.Text = NumberSecond;
+                numberSecond = numberSecond.Substring(0, numberSecond.Length - 1);
+                buttonText.Text = numberSecond;
             }
         }
 
         private void buttonResetAll_MouseClick(object sender, MouseEventArgs e)
         {
-            NumberFirst = NumberSecond = Operator = "";
-            CountNumber = 0;
+            numberFirst = "";
+            numberSecond = "";
+            Operator = "";
+            countNumber = 0;
             buttonText.Text = "0";
         }
 
@@ -145,25 +150,15 @@ namespace hw7CalculatorWinForms
         {
             if (Operator == "")
             {
-                NumberFirst = NumberSecond = Operator = "";
-                CountNumber = 0;
+                numberFirst = numberSecond = Operator = "";
+                countNumber = 0;
                 buttonText.Text = "0";
             }
             else
             {
-                NumberSecond = "";
-                buttonText.Text = NumberFirst;
+                numberSecond = "";
+                buttonText.Text = numberFirst;
             }
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint_1(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
