@@ -1,7 +1,7 @@
 ﻿
 namespace Hw7Clock
 {
-    partial class Form1
+    partial class ClockWinForms
     {
         /// <summary>
         ///  Required designer variable.
@@ -51,15 +51,15 @@ namespace Hw7Clock
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // Form1
+            // ClockWinForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(282, 253);
             this.Controls.Add(this.pictureBox1);
             this.MinimumSize = new System.Drawing.Size(300, 300);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "ClockWinForms";
+            this.Text = "Clock";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

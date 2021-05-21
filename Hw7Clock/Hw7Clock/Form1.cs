@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Hw7Clock
 {
-    public partial class Form1 : Form
+    public partial class ClockWinForms : Form
     {
-        Timer timer = new Timer();
+        private Timer timer = new();
 
         private int coordX;
 
@@ -22,13 +22,13 @@ namespace Hw7Clock
 
         private Graphics graphics;
 
-        public Form1()
-        {
-            InitializeComponent();
-        }
+        public ClockWinForms()
+            => InitializeComponent();
 
         public void Form1_Load(object sender, EventArgs e)
         {
+            Width = 300;
+            Height = 300;
             img = new Bitmap(Width + 1, Height + 1);
             coordX = Width / 2;
             coordY = Height / 2;
@@ -44,7 +44,7 @@ namespace Hw7Clock
             int ss = DateTime.Now.Second;
             int mm = DateTime.Now.Minute;
             int hh = DateTime.Now.Hour;
-            int[] coord = new int[2];
+            (int, int) coord;
             graphics.Clear(Color.Azure);
             graphics.DrawEllipse(new Pen(Color.Black, 1f), 0, 0, 300, 300);
             graphics.DrawString("1", new Font("Elephant", 12), Brushes.Black, new PointF(210, 25));
@@ -60,47 +60,41 @@ namespace Hw7Clock
             graphics.DrawString("11", new Font("Elephant", 12), Brushes.Black, new PointF(70, 25));
             graphics.DrawString("12", new Font("Elephant", 12), Brushes.Black, new PointF(140, 2));
             coord = RotateMinSec(ss, 140);
-            graphics.DrawLine(new Pen(Color.Red, 1f), new Point(coordX, coordY), new Point(coord[0], coord[1]));
+            graphics.DrawLine(new Pen(Color.Red, 1f), new Point(coordX, coordY), new Point(coord.Item1, coord.Item2));
             coord = RotateMinSec(mm, 110);
-            graphics.DrawLine(new Pen(Color.Black, 2f), new Point(coordX, coordY), new Point(coord[0], coord[1]));
+            graphics.DrawLine(new Pen(Color.Black, 2f), new Point(coordX, coordY), new Point(coord.Item1, coord.Item2));
             coord = RotateHour(hh % 12, mm,80);
-            graphics.DrawLine(new Pen(Color.Green, 3f), new Point(coordX, coordY), new Point(coord[0], coord[1]));
+            graphics.DrawLine(new Pen(Color.Green, 3f), new Point(coordX, coordY), new Point(coord.Item1, coord.Item2));
             pictureBox1.Image = img;
             graphics.Dispose();
         }
 
-        private int[] RotateMinSec(int value, int hLen)
+        private (int, int) GetCoordinates(int value, int hLen)
         {
-            int[] coordinates = new int[2];
-            value *= 6;
+            (int, int) coordinates;
             if (value >= 0 && value <= 180)
             {
-                coordinates[0] = coordX + (int)(hLen * Math.Sin(Math.PI * value / 180));
-                coordinates[1] = coordY - (int)(hLen * Math.Cos(Math.PI * value / 180));
+                coordinates.Item1 = coordX + (int)(hLen * Math.Sin(Math.PI * value / 180));
+                coordinates.Item2 = coordY - (int)(hLen * Math.Cos(Math.PI * value / 180));
             }
             else
             {
-                coordinates[0] = coordX - (int)(hLen * -Math.Sin(Math.PI * value / 180));
-                coordinates[1] = coordY - (int)(hLen * Math.Cos(Math.PI * value / 180));
+                coordinates.Item1 = coordX - (int)(hLen * -Math.Sin(Math.PI * value / 180));
+                coordinates.Item2 = coordY - (int)(hLen * Math.Cos(Math.PI * value / 180));
             }
             return coordinates;
         }
 
-        private int[] RotateHour(int hValue, int mValue, int hLen)
+        private (int, int) RotateMinSec(int value, int hLen)
         {
-            int[] coordinates = new int[2];
+            value *= 6;
+            return GetCoordinates(value, hLen);
+        }
+
+        private (int, int) RotateHour(int hValue, int mValue, int hLen)
+        {
             int value = (int)((hValue * 30) + (mValue * 0.5));
-            if (value >= 0 && value <= 180)
-            {
-                coordinates[0] = coordX + (int)(hLen * Math.Sin(Math.PI * value / 180));
-                coordinates[1] = coordY + (int)(hLen * Math.Cos(Math.PI * value / 180));
-            }
-            else
-            {
-                coordinates[0] = coordX - (int)(hLen * -Math.Sin(Math.PI * value / 180));
-                coordinates[1] = coordY - (int)(hLen * Math.Cos(Math.PI * value / 180));
-            }
-            return coordinates;
+            return GetCoordinates(value, hLen);
         }
     }
 }
