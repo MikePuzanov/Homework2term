@@ -194,7 +194,7 @@ namespace Hw7CalculatorWinForms
             this.buttonMultiplication.TabIndex = 14;
             this.buttonMultiplication.Text = "*";
             this.buttonMultiplication.UseVisualStyleBackColor = true;
-            this.buttonMultiplication.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonPlus_MouseClick);
+            this.buttonMultiplication.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonSign_MouseClick);
             // 
             // button9
             // 
@@ -271,7 +271,7 @@ namespace Hw7CalculatorWinForms
             this.buttonDivide.TabIndex = 15;
             this.buttonDivide.Text = "/";
             this.buttonDivide.UseVisualStyleBackColor = true;
-            this.buttonDivide.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonPlus_MouseClick);
+            this.buttonDivide.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonSign_MouseClick);
             // 
             // buttonMinus
             // 
@@ -282,7 +282,7 @@ namespace Hw7CalculatorWinForms
             this.buttonMinus.TabIndex = 13;
             this.buttonMinus.Text = "-";
             this.buttonMinus.UseVisualStyleBackColor = true;
-            this.buttonMinus.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonPlus_MouseClick);
+            this.buttonMinus.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonSign_MouseClick);
             // 
             // buttonPlus
             // 
@@ -293,7 +293,7 @@ namespace Hw7CalculatorWinForms
             this.buttonPlus.TabIndex = 12;
             this.buttonPlus.Text = "+";
             this.buttonPlus.UseVisualStyleBackColor = true;
-            this.buttonPlus.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonPlus_MouseClick);
+            this.buttonPlus.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonSign_MouseClick);
             // 
             // button3
             // 
