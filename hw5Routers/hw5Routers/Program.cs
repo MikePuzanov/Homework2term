@@ -15,6 +15,10 @@ namespace Hw5Routers
             {
                 Console.Error.WriteLine("Граф несвязный!");
             }
+            catch (NoParametersException)
+            {
+                Console.Error.WriteLine("Введите параметры: путь до входного файла и путь до выходного файла.");
+            }
         }
     }
 }

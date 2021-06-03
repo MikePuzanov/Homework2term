@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Hw5Routers
 {
+    /// <summary>
+    /// класс для работы с файлами
+    /// </summary>
     public static class FileFunctions
     {
         /// <summary>
@@ -12,6 +15,10 @@ namespace Hw5Routers
         /// <returns>матрицу графа</returns>
         public static int[,] CreateGraph(string filePath)
         {
+            if (filePath == "")
+            {
+                throw new NoParametersException();
+            }
             int vertices = CountVertexes(filePath);
             var matrix = new int[vertices, vertices];
             using var file = new StreamReader(filePath);
@@ -25,7 +32,8 @@ namespace Hw5Routers
                 {
                     var numberSecond = Int32.Parse(lineDrop[i]) - 1;
                     var distance = Int32.Parse(lineDrop[i + 1].Substring(1, lineDrop[i + 1].Length - 2));
-                    matrix[numberFirst, numberSecond] = matrix[numberSecond, numberFirst] = distance;
+                    matrix[numberFirst, numberSecond] = matrix[numberSecond, numberFirst];
+                    matrix[numberFirst, numberSecond] = distance;
                 }
                 stringLine = file.ReadLine();
             }
@@ -68,13 +76,17 @@ namespace Hw5Routers
         /// </summary>
         public static void WriteInFile(int[,] matrix, string filePath)
         {
+            if (filePath == "")
+            {
+                throw new NoParametersException();
+            }
             var fileOut = new FileInfo(filePath);
             if (fileOut.Exists)
             {
                 fileOut.Delete();
             }
             using var newFile = new FileStream(filePath, FileMode.Create);
-            StreamWriter file = new StreamWriter(newFile);
+            var file = new StreamWriter(newFile);
             for (int i = 0; i < matrix.GetLength(0) - 1; i++)
             {
                 var line = $"{i + 1}: ";

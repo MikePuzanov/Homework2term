@@ -89,7 +89,7 @@ namespace Hw5Routers
                 isConsist[indexFirst] = true;
                 for (int indexSecond = 0; indexSecond < size; indexSecond++)
                 {
-                    if (matrix[indexFirst, indexSecond] != 0 && isConsist[indexSecond] == false && matrix[indexFirst, indexSecond] > key[indexSecond])
+                    if (matrix[indexFirst, indexSecond] != 0 && !isConsist[indexSecond] && matrix[indexFirst, indexSecond] > key[indexSecond])
                     {
                         parent[indexSecond] = indexFirst;
                         key[indexSecond] = matrix[indexFirst, indexSecond];
