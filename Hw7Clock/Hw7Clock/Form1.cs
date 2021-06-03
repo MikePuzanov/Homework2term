@@ -43,7 +43,6 @@ namespace Hw7Clock
 
         private void DrawNumber(string font, (int x, int y)[] coordinates)
         {
-            var coordinatesNumbers = new (int, int)[] { (210, 25), (260, 70), (280, 142), (260, 200), (210, 255), (142, 276), (70, 255), (25, 200), (0, 140), (25, 70), (70, 25), (142, 2) };
             for (int i = 1; i < 13; ++i)
             {
                 graphics.DrawString(i.ToString(), new Font(font, 12), Brushes.Black, new PointF(coordinates[i - 1].x, coordinates[i - 1].y));
@@ -59,7 +58,21 @@ namespace Hw7Clock
             (int x, int y) coord;
             graphics.Clear(Color.Azure);
             graphics.DrawEllipse(new Pen(Color.Black, 1f), 0, 0, 300, 300);
-            var coordinatesNumbers = new (int x, int y)[] { (210, 25), (260, 70), (280, 142), (260, 200), (210, 255), (142, 276), (70, 255), (25, 200), (0, 140), (25, 70), (70, 25), (142, 2) };
+            var coordinatesNumbers = new (int x, int y)[]
+            {
+                (210, 25),
+                (260, 70),
+                (280, 142),
+                (260, 200),
+                (210, 255),
+                (142, 276),
+                (70, 255),
+                (25, 200),
+                (0, 140),
+                (25, 70),
+                (70, 25),
+                (142, 2)
+            };
             DrawNumber("Elephant", coordinatesNumbers);
             coord = RotateMinSec(ss, 140);
             graphics.DrawLine(new Pen(Color.Red, 1f), new Point(coordX, coordY), new Point(coord.x, coord.y));
