@@ -4,20 +4,25 @@ using System.Text;
 
 namespace Hw4ParseTree
 {
+    /// <summary>
+    /// класс синтаксического дерева, который представляет число
+    /// </summary>
     class Operand : INode
     {
-        public double Number { get; set; }
+        private double Number { get; }
 
         public Operand(double number)
-        {
-            Number = number;
-        }
+            => Number = number;
 
+        /// <summary>
+        /// выводит число
+        /// </summary>
         public void Print()
-        {
-            Console.Write($" {Number} ");
-        }
+            => Console.Write($" {Number} ");
 
+        /// <summary>
+        /// считает значение
+        /// </summary>
         public double Calculate()
             => Number;
     }

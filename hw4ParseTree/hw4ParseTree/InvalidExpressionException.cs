@@ -5,7 +5,7 @@ using System.Text;
 namespace Hw4ParseTree
 {
     /// <summary>
-    /// исключение для неправильных выражений6
+    /// исключение для неправильных выражений.
     /// </summary>
     public class InvalidExpressionException : Exception
     {

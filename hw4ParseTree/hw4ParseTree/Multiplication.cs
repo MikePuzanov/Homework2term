@@ -9,11 +9,10 @@ namespace Hw4ParseTree
     /// </summary>
     public class Multiplication : Operator
     {
-        public override char Sign { get; }
+        public override char Sign => '*';
 
         public Multiplication(INode leftChild, INode rightChild)
         {
-            Sign = '*';
             LeftChild = leftChild;
             RightChild = rightChild;
         }

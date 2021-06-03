@@ -9,11 +9,10 @@ namespace Hw4ParseTree
     /// </summary>
     public class Subtraction : Operator
     {
-        public override char Sign { get;  }
+        public override char Sign => '-';
 
         public Subtraction(INode leftChild, INode rightChild)
         {
-            Sign = '-';
             LeftChild = leftChild;
             RightChild = rightChild;
         }

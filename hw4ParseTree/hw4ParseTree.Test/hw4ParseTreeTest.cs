@@ -50,7 +50,7 @@ namespace Hw4ParseTree.Test
         {
             var str = "( / 3 2 )";
             tree.BuildTree(str);
-            Assert.AreEqual(1.5, tree.Calculate());
+            Assert.AreEqual(1.5, tree.Calculate(), double.PositiveInfinity);
         }
 
         [TestCase]

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Hw4ParseTree
 {
+    /// <summary>
+    /// Класс синтаксического дерва который представляет оператор
+    /// </summary>
     public abstract class Operator : INode
     {
         public INode LeftChild { get; set; }
@@ -20,7 +23,7 @@ namespace Hw4ParseTree
             RightChild.Print();
             Console.Write(")");
         }
-        public abstract double Calculate();
 
+        public abstract double Calculate();
     }
 }

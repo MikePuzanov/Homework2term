@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Hw4ParseTree
 {
+    /// <summary>
+    /// дерево разбора
+    /// </summary>
     public class ParseTree
     {
         private INode root;
@@ -118,7 +121,7 @@ namespace Hw4ParseTree
                         '-' => new Subtraction(Build(line, ref index), Build(line, ref index)),
                         '/' => new Division(Build(line, ref index), Build(line, ref index)),
                         '*' => new Multiplication(Build(line, ref index), Build(line, ref index)),
-                        _ => throw new Exception(),
+                        _ => throw new InvalidExpressionException(),
                     };
                 }
                 else if (!IsCorrectSymbol(line[index]))
