@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Hw7CalculatorWinForms
 {
+    /// <summary>
+    /// класс с интерфейс калькулятора
+    /// </summary>
     public partial class CalculatorForms : Form
     {
         private string numberFirst = "";
@@ -89,7 +92,6 @@ namespace Hw7CalculatorWinForms
                 buttonText.Text = numberFirst;
             }
         }
-
 
         private void buttonEqual_MouseClick(object sender, MouseEventArgs e)
         {

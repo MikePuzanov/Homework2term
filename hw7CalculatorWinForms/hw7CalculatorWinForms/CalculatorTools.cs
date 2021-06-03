@@ -6,27 +6,36 @@ using System.Threading.Tasks;
 
 namespace Hw7CalculatorWinForms
 {
+    /// <summary>
+    /// класс для подсчета значений
+    /// </summary>
     static public class CalculatorTools
     {
-        static public void Calculate(ref double str1, double str2, string sign)
+        /// <summary>
+        /// Считает значение двух чисел по знаку
+        /// </summary>
+        /// <param name="number1">первое число</param>
+        /// <param name="number2">второе число</param>
+        /// <param name="sign">арифмитический знак</param>
+        static public void Calculate(ref double number1, double number2, string sign)
         {
             switch (sign)
             {
                 case "+":
-                    str1 = str1 + str2;
+                    number1 = number1 + number2;
                     break;
                 case "-":
-                    str1 = str1 - str2;
+                    number1 = number1 - number2;
                     break;
                 case "*":
-                    str1 = str1 * str2;
+                    number1 = number1 * number2;
                     break;
                 case "/":
-                    if (str2 == 0)
+                    if (number2 == 0)
                     {
                         throw new DivideByZeroException();
                     }
-                    str1 = str1 / str2;
+                    number1 = number1 / number2;
                     break;
             }
         }
