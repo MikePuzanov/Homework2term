@@ -5,8 +5,6 @@ namespace Hw6Game.Test
 {
     public class Tests
     {
-        private EventLoop eventLoop;
-
         private Map map;
 
         [SetUp]
@@ -19,7 +17,7 @@ namespace Hw6Game.Test
         public void MoveLeftTest()
         {
             (int, int) oldCoordinates = map.GetPlayerCoordinates();
-            map.Move("left");
+            map.Move(Game.Moves.left);
             (int, int) newCoordinates = map.GetPlayerCoordinates();
             oldCoordinates.Item1--;
             Assert.AreEqual(oldCoordinates.Item1, newCoordinates.Item1);
@@ -30,7 +28,7 @@ namespace Hw6Game.Test
         public void MoveRightTest()
         {
             (int, int) oldCoordinates = map.GetPlayerCoordinates();
-            map.Move("right");
+            map.Move(Game.Moves.right);
             (int, int) newCoordinates = map.GetPlayerCoordinates();
             oldCoordinates.Item1++;
             Assert.AreEqual(oldCoordinates.Item1, newCoordinates.Item1);
@@ -41,7 +39,7 @@ namespace Hw6Game.Test
         public void MoveUpTest()
         {
             (int, int) oldCoordinates = map.GetPlayerCoordinates();
-            map.Move("up");
+            map.Move(Game.Moves.up);
             (int, int) newCoordinates = map.GetPlayerCoordinates();
             oldCoordinates.Item2--;
             Assert.AreEqual(oldCoordinates.Item1, newCoordinates.Item1);
@@ -52,7 +50,7 @@ namespace Hw6Game.Test
         public void MoveDownTest()
         {
             (int, int) oldCoordinates = map.GetPlayerCoordinates();
-            map.Move("down");
+            map.Move(Game.Moves.down);
             (int, int) newCoordinates = map.GetPlayerCoordinates();
             oldCoordinates.Item2++;
             Assert.AreEqual(oldCoordinates.Item1, newCoordinates.Item1);
@@ -62,9 +60,9 @@ namespace Hw6Game.Test
         [Test]
         public void MoveLeftToWallTest()
         {
-            map.Move("left");
+            map.Move(Game.Moves.left);
             (int, int) oldCoordinates = map.GetPlayerCoordinates();
-            map.Move("left");
+            map.Move(Game.Moves.left);
             (int, int) newCoordinates = map.GetPlayerCoordinates();
             Assert.AreEqual(oldCoordinates.Item1, newCoordinates.Item1);
             Assert.AreEqual(oldCoordinates.Item2, newCoordinates.Item2);
@@ -73,9 +71,9 @@ namespace Hw6Game.Test
         [Test]
         public void MoveUpToWallTest()
         {
-            map.Move("up");
+            map.Move(Game.Moves.up);
             (int, int) oldCoordinates = map.GetPlayerCoordinates();
-            map.Move("up");
+            map.Move(Game.Moves.up);
             (int, int) newCoordinates = map.GetPlayerCoordinates();
             Assert.AreEqual(oldCoordinates.Item1, newCoordinates.Item1);
             Assert.AreEqual(oldCoordinates.Item2, newCoordinates.Item2);

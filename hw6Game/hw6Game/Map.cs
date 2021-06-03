@@ -16,7 +16,7 @@ namespace Hw6Game
 
         private string[] mapPic;
 
-        static private PlayerCoordinates player = new PlayerCoordinates(); 
+        static private PlayerCoordinates player = new ();
 
         /// <summary>
         /// create a map
@@ -38,43 +38,34 @@ namespace Hw6Game
             mapPic = map;
         }
 
+        private bool CheckMove((int x, int y) coord)
+        {
+            if (mapPic[coord.y][coord.x ] != ' ' && mapPic[coord.y][coord.x] != '@')
+            {
+                return false;
+            }
+            player.x = coord.x;
+            player.y =coord.y;
+            return true;
+        }
+
         /// <summary>
         /// Move player
         /// </summary>
         /// <param name="step">step direction</param>
         /// <returns>true if step is complete</returns>
-        public bool Move(string step)
+        public bool Move(Game.Moves move)
         {
-            switch (step)
+            switch (move)
             {
-                case "left":
-                    if (mapPic[player.y][player.x - 1] != ' ' && mapPic[player.y][player.x - 1] != '@')
-                    {
-                        return false;
-                    }
-                    player.x -= 1;
-                    return true;
-                case "right":
-                    if (mapPic[player.y][player.x + 1] != ' ' && mapPic[player.y][player.x + 1] != '@')
-                    {
-                        return false;
-                    }
-                    player.x += 1;
-                    return true;
-                case "down":
-                    if (mapPic[player.y + 1][player.x] != ' ' && mapPic[player.y + 1][player.x] != '@')
-                    {
-                        return false;
-                    }
-                    player.y += 1;
-                    return true;
-                case "up":
-                    if (mapPic[player.y - 1][player.x] != ' ' && mapPic[player.y - 1][player.x] != '@')
-                    {
-                        return false;
-                    }
-                    player.y -= 1;
-                    return true;
+                case Game.Moves.left:
+                    return CheckMove((player.x - 1, player.y));
+                case Game.Moves.right:
+                    return CheckMove((player.x + 1, player.y));
+                case Game.Moves.down:
+                    return CheckMove((player.x, player.y + 1));
+                case Game.Moves.up:
+                    return CheckMove((player.x, player.y - 1));
                 default:
                     return false;
             }

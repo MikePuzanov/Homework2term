@@ -11,6 +11,17 @@ namespace Hw6Game
     /// </summary>
     public class Game
     {
+        /// <summary>
+        /// enums for moves
+        /// </summary>
+        public enum Moves
+        {
+            left,
+            right,
+            up,
+            down
+        }
+
         private Map map;
 
         private (int, int) coordinates;
@@ -23,40 +34,40 @@ namespace Hw6Game
 
         public void OnLeft(object sender, EventArgs args)
         {
-            Move("left");
+            Move(Moves.left);
         }
 
         public void OnRight(object sender, EventArgs args)
         {
-            Move("right");
+            Move(Moves.right);
         }
 
         public void OnDown(object sender, EventArgs args)
         {
-            Move("down");
+            Move(Moves.down);
         }
 
         public void OnUp(object sender, EventArgs args)
         {
-            Move("up");
+            Move(Moves.up);
         }
 
-        private (int, int) GetNewCoordinates((int, int) coordinates, string step) =>
-            step switch
+        private (int, int) GetNewCoordinates((int, int) coordinates, Moves move) =>
+            move switch
             {
-                "left" => (coordinates.Item1 + 1, coordinates.Item2),
-                "right" => (coordinates.Item1 - 1, coordinates.Item2),
-                "down" => (coordinates.Item1, coordinates.Item2 - 1),
-                "up" => (coordinates.Item1, coordinates.Item2 + 1),
+                Moves.left => (coordinates.Item1 + 1, coordinates.Item2),
+                Moves.right => (coordinates.Item1 - 1, coordinates.Item2),
+                Moves.down => (coordinates.Item1, coordinates.Item2 - 1),
+                Moves.up => (coordinates.Item1, coordinates.Item2 + 1),
                 _ => (coordinates.Item1, coordinates.Item2)
             };
 
-        private void Move(string step)
+        private void Move(Moves move)
         {
-            if (map.Move(step))
+            if (map.Move(move))
             {
                 var oldCoordinates = map.GetPlayerCoordinates();
-                coordinates = GetNewCoordinates(map.GetPlayerCoordinates(), step);
+                coordinates = GetNewCoordinates(map.GetPlayerCoordinates(), move);
                 Console.SetCursorPosition(coordinates.Item1, coordinates.Item2);
                 Console.Write(' ');
                 Console.SetCursorPosition(oldCoordinates.Item1, oldCoordinates.Item2);
