@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hw5Routers", "hw5Routers\Hw5Routers.csproj", "{55F17858-3620-46FF-BF81-AF2E7DD2595D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hw5Routers.Test", "hw5Routers.Test\hw5Routers.Test.csproj", "{B3DF091C-3CAD-4E6A-9401-94EFDBA9E0D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55F17858-3620-46FF-BF81-AF2E7DD2595D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55F17858-3620-46FF-BF81-AF2E7DD2595D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55F17858-3620-46FF-BF81-AF2E7DD2595D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55F17858-3620-46FF-BF81-AF2E7DD2595D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3DF091C-3CAD-4E6A-9401-94EFDBA9E0D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3DF091C-3CAD-4E6A-9401-94EFDBA9E0D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3DF091C-3CAD-4E6A-9401-94EFDBA9E0D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3DF091C-3CAD-4E6A-9401-94EFDBA9E0D2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {054D180F-116B-4C02-B1C8-C947EB1CCD17}
+	EndGlobalSection
+EndGlobal
