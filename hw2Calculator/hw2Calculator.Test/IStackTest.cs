@@ -1,51 +1,48 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Hw2Calculator.Test
 {
     [TestFixture]
     public class IStackTest
     {
-        IStack stack1;
-        IStack stack2;
-
-        [SetUp]
-        public void Setup()
+        [TestCaseSource(nameof(Stacks))]
+        public void IsEmptyAfterPush(IStack stack)
         {
-            stack1 = new StackList();
-            stack2 = new StackArray();
-            stack1.Push(9);
-            stack2.Push(8);
+            stack.Push(9);
+            Assert.IsTrue(!(stack.IsEmpty()));
         }
 
-        [Test]
-        public void IsEmptyAfterPush()
+        [TestCaseSource(nameof(Stacks))]
+        public void PopAfterPush(IStack stack)
         {
-            Assert.IsTrue(!(stack1.IsEmpty() && stack2.IsEmpty()));
+            stack.Push(9);
+            Assert.AreEqual(9, stack.Pop());
         }
 
-        [Test]
-        public void PopAfterPush()
+        [TestCaseSource(nameof(Stacks))]
+        public void CheckDeleteStack(IStack stack)
         {
-            Assert.AreEqual(9, stack1.Pop());
-            Assert.AreEqual(8, stack2.Pop());
+            stack.Push(9);
+            stack.Push(8);
+            stack.Push(9);
+            stack.ClearStack();
+            Assert.IsTrue((stack.IsEmpty()));
         }
 
-        [Test]
-        public void CheckDeleteStack()
+        [TestCaseSource(nameof(Stacks))]
+        public void CheckIsEmpty(IStack stack)
         {
-            stack1.Push(8);
-            stack1.Push(9);
-            stack1.ClearStack();
-            stack2.ClearStack();
-            Assert.IsTrue((stack1.IsEmpty() && stack2.IsEmpty()));
+            stack.Push(9);
+            stack.Pop();
+            Assert.IsTrue((stack.IsEmpty()));
         }
 
-        [Test]
-        public void CheckIsEmpty()
-        {
-            stack1.Pop();
-            stack2.Pop();
-            Assert.IsTrue((stack1.IsEmpty() && stack2.IsEmpty()));
-        }
+        private static IEnumerable<TestCaseData> Stacks
+            => new TestCaseData[]
+            {
+                new TestCaseData(new StackList()),
+                new TestCaseData(new StackArray()),
+            };
     }
 }

@@ -31,13 +31,11 @@ namespace Hw2Calculator
                 throw new InvalidOperationException();
             }
             countNumbersInStack--;
-            double delete = stackElements[countNumbersInStack];
-            return delete;
+            return stackElements[countNumbersInStack];
         }
 
         public bool IsEmpty()
             => countNumbersInStack == 0;
-
 
         public void ClearStack()
         {

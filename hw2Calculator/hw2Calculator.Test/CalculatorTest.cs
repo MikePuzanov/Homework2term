@@ -12,7 +12,7 @@ namespace Hw2Calculator.Test
             return !isCorrect || Math.Abs(result - mainResult) < 0.000001;
         }
 
-        private static (string Test, double Result)[] CorrectDataForTests = new[]
+        private static (string Test, double Result)[] correctDataForTests = new[]
         {
             ("2 4 * 2 -", 6.0),
             ("2 2 +", 4.0),
@@ -29,43 +29,43 @@ namespace Hw2Calculator.Test
             ("6 3 - 1 2 * /", 1.5),
         };
 
-        [TestCaseSource(nameof(CorrectDataForTest))]
+        [TestCaseSource(nameof(TestCorrectData))]
         public void CalculatorTestForCorrectData(IStack stack, string expresion, double mainResult)
         {
             (var result, var isCorrect) = Calculator.CalculatorExpression(expresion, stack);
             Assert.IsTrue(CheckTrueExpression(isCorrect, result, mainResult));
         }
 
-        private static IEnumerable<TestCaseData> CorrectDataForTest
+        private static IEnumerable<TestCaseData> TestCorrectData
             =>
-                CorrectDataForTests.SelectMany(DataForTests => new TestCaseData[]
+                correctDataForTests.SelectMany(DataForTests => new TestCaseData[]
                 {
                     new TestCaseData(new StackList(), DataForTests.Test, DataForTests.Result),
                     new TestCaseData(new StackArray(), DataForTests.Test, DataForTests.Result)
                 });
 
-        private static string[] UncorrectDataForTests = new[]
+        private static (string Test, double Result)[] incorrectDataForTests = new[]
         {
-            ("2 + 2"),
-            ("2 / 0"),
-            ("2 +"),
-            ("2 asd"),
-            ("2 2 + 2"),
+            ("2 + 2", 0.0),
+            ("2 / 0", 0.0),
+            ("2 +", 0.0),
+            ("2 asd", 0.0),
+            ("2 2 + 2", 0.0),
         };
 
-        [TestCaseSource(nameof(CorrectDataForTest))]
-        public void CalculatorTestForUncorrectData(IStack stack, string expresion, double mainResult)
+        [TestCaseSource(nameof(TestIncorrectDate))]
+        public void CalculatorTestForIncorrectData(IStack stack, string expresion, double mainResult)
         {
             (var result, var isCorrect) = Calculator.CalculatorExpression(expresion, stack);
             Assert.IsTrue(CheckTrueExpression(isCorrect, result, mainResult));
         }
 
-        private static IEnumerable<TestCaseData> UncorrectDataForTest
+        private static IEnumerable<TestCaseData> TestIncorrectDate
             =>
-                UncorrectDataForTests.SelectMany(DataForTests => new TestCaseData[]
+                incorrectDataForTests.SelectMany(DataForTests => new TestCaseData[]
                 {
-                    new TestCaseData(new StackList(), UncorrectDataForTests),
-                    new TestCaseData(new StackArray(), UncorrectDataForTests)
+                    new TestCaseData(new StackList(), DataForTests.Test, DataForTests.Result),
+                    new TestCaseData(new StackArray(), DataForTests.Test, DataForTests.Result)
                 });
     }
 }
