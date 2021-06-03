@@ -46,7 +46,7 @@ namespace Hw7Clock
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(282, 253);
+            this.pictureBox1.Size = new System.Drawing.Size(440, 314);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -55,7 +55,7 @@ namespace Hw7Clock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.ClientSize = new System.Drawing.Size(440, 314);
             this.Controls.Add(this.pictureBox1);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "ClockWinForms";
@@ -71,4 +71,3 @@ namespace Hw7Clock
         private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
-
