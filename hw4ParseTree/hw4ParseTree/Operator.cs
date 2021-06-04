@@ -15,6 +15,9 @@ namespace Hw4ParseTree
 
         public virtual char Sign { get; }
 
+        /// <summary>
+        /// выводит участок выражения
+        /// </summary>
         public void Print()
         {
             Console.Write("(");
@@ -24,6 +27,9 @@ namespace Hw4ParseTree
             Console.Write(")");
         }
 
+        /// <summary>
+        /// считает значение
+        /// </summary>
         public abstract double Calculate();
     }
 }

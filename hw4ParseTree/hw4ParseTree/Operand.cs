@@ -9,7 +9,7 @@ namespace Hw4ParseTree
     /// </summary>
     class Operand : INode
     {
-        private double Number { get; }
+        private double Number;
 
         public Operand(double number)
             => Number = number;

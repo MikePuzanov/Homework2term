@@ -132,7 +132,6 @@ namespace Hw4ParseTree
             return root;
         }
 
-
         /// <summary>
         /// функция печати дерева
         /// </summary>
